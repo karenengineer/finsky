@@ -1,0 +1,26 @@
+<div class="language-switcher" [class.light]="theme() === 'light'">
+  <button
+    type="button"
+    class="language-trigger"
+    [attr.aria-label]="'common.a11y.selectLanguage' | translate"
+    [attr.aria-expanded]="open()"
+    (click)="toggle($event)"
+  >
+    {{ currentLanguage() | uppercase }}
+    <span>⌄</span>
+  </button>
+  @if (open()) {
+    <div class="language-menu">
+      @for (language of languages; track language.code) {
+        <button
+          type="button"
+          [class.active]="currentLanguage() === language.code"
+          (click)="select(language.code, $event)"
+        >
+          <span>{{ language.shortLabel }}</span>
+          {{ language.label }}
+        </button>
+      }
+    </div>
+  }
+</div>

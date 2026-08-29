@@ -1,0 +1,69 @@
+<main>
+  <aside>
+    <a class="admin-logo" routerLink="/"><span>Ф</span><strong>{{ 'common.brand' | translate }}<small>{{ 'admin.management' | translate }}</small></strong></a>
+    <nav>
+      <small>{{ 'admin.workspace' | translate }}</small>
+      <a routerLink="/admin"><i>⌂</i> {{ 'admin.overview' | translate }}</a>
+      <small>{{ 'admin.content' | translate }}</small>
+      <a routerLink="/admin/pages"><i>≡</i> {{ 'admin.pages' | translate }}</a>
+      <a routerLink="/admin/services"><i>◇</i> {{ 'admin.services' | translate }}</a>
+      <a class="active" routerLink="/admin/team-section"><i>▧</i> {{ 'admin.teamSection.nav' | translate }}</a>
+      @if (auth.isSuperAdmin()) {
+        <small>{{ 'admin.security' | translate }}</small>
+        <a routerLink="/admin/users"><i>♙</i> {{ 'admin.users.title' | translate }}</a>
+      }
+    </nav>
+    <button class="user" type="button" (click)="logout()"><span>{{ initials() }}</span><div><strong>{{ auth.currentUser()?.firstName }} {{ auth.currentUser()?.lastName }}</strong><small>{{ 'admin.users.logoutHint' | translate }}</small></div><b>↗</b></button>
+  </aside>
+
+  <section class="workspace">
+    <header>
+      <div><small>{{ 'admin.content' | translate }}</small><h1>{{ 'admin.teamSection.title' | translate }}</h1></div>
+      <div class="header-actions"><app-language-switcher theme="light" /><a class="preview-link" routerLink="/" target="_blank">{{ 'admin.teamSection.openPreview' | translate }} ↗</a><button class="save-button" type="button" (click)="save()">{{ (saved() ? 'admin.teamSection.saved' : 'admin.teamSection.save') | translate }}</button></div>
+    </header>
+
+    <div class="editor-grid">
+      <div class="editor-column">
+        <section class="panel">
+          <div class="panel-head"><div><h2>{{ 'admin.teamSection.settings' | translate }}</h2><p>{{ 'admin.teamSection.settingsHelp' | translate }}</p></div><label class="switch"><input type="checkbox" [formControl]="form.controls.isVisible"><span></span>{{ (form.controls.isVisible.value ? 'admin.teamSection.visible' : 'admin.teamSection.hidden') | translate }}</label></div>
+          <div class="panel-body">
+            <div class="field"><label>{{ 'admin.teamSection.imageUrl' | translate }}</label><input [formControl]="form.controls.backgroundImageUrl"><small>{{ 'admin.teamSection.imageHelp' | translate }}</small></div>
+            <label class="upload"><input type="file" accept="image/png,image/jpeg,image/webp" (change)="uploadImage($event)"><span>＋</span><strong>{{ 'admin.teamSection.upload' | translate }}</strong><small>{{ 'admin.teamSection.uploadHelp' | translate }}</small></label>
+            @if (imageError()) { <p class="error">{{ 'admin.teamSection.imageError' | translate }}</p> }
+            <div class="two-fields">
+              <div class="field"><label>{{ 'admin.teamSection.ctaLink' | translate }}</label><input [formControl]="form.controls.ctaLink"></div>
+              <div class="field"><label>{{ 'admin.teamSection.sortOrder' | translate }}</label><input type="number" [formControl]="form.controls.sortOrder"></div>
+            </div>
+            <div class="range-field"><div><label>{{ 'admin.teamSection.overlay' | translate }}</label><strong>{{ (form.controls.overlayOpacity.value * 100).toFixed(0) }}%</strong></div><input type="range" min="0.25" max="0.9" step="0.01" [formControl]="form.controls.overlayOpacity"></div>
+          </div>
+        </section>
+
+        <section class="panel content-panel">
+          <div class="panel-head"><div><h2>{{ 'admin.teamSection.content' | translate }}</h2><p>{{ 'admin.teamSection.contentHelp' | translate }}</p></div></div>
+          <div class="language-tabs">@for (language of languages; track language.code) {<button type="button" [class.active]="activeLanguage() === language.code" (click)="activeLanguage.set(language.code)"><span>{{ language.shortLabel }}</span>{{ language.label }}</button>}</div>
+          <div class="panel-body" [formGroup]="activeContent">
+            <div class="field"><label>{{ 'admin.teamSection.label' | translate }}</label><input formControlName="label"></div>
+            <div class="field"><label>{{ 'admin.teamSection.heading' | translate }}</label><textarea class="title-input" formControlName="title"></textarea></div>
+            <div class="field"><label>{{ 'admin.teamSection.description' | translate }}</label><textarea formControlName="description"></textarea></div>
+            <div class="field"><label>{{ 'admin.teamSection.ctaText' | translate }}</label><input formControlName="ctaText"></div>
+          </div>
+        </section>
+        <button class="reset-button" type="button" (click)="reset()">{{ 'admin.teamSection.reset' | translate }}</button>
+      </div>
+
+      <aside class="preview-column">
+        <div class="preview-label">{{ 'admin.teamSection.livePreview' | translate }} · {{ activeLanguage() | uppercase }}</div>
+        <div class="preview" [style.background-image]="'url(' + form.controls.backgroundImageUrl.value + ')'">
+          <div class="preview-overlay" [style.opacity]="form.controls.overlayOpacity.value"></div>
+          <div class="preview-copy">
+            <small>{{ activeContent.controls.label.value }}</small>
+            <h2>{{ activeContent.controls.title.value }}</h2>
+            <p>{{ activeContent.controls.description.value }}</p>
+            <span>{{ activeContent.controls.ctaText.value }} →</span>
+          </div>
+        </div>
+        <p class="preview-note">{{ 'admin.teamSection.previewNote' | translate }}</p>
+      </aside>
+    </div>
+  </section>
+</main>

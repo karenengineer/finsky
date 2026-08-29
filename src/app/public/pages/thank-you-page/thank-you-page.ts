@@ -1,0 +1,30 @@
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { SeoService } from '../../../core/seo/seo.service';
+
+@Component({
+  selector: 'app-thank-you-page',
+  standalone: true,
+  imports: [RouterLink],
+  template: `
+    <section class="grid min-h-[62vh] place-items-center bg-premium-paper/70 px-4 py-20 text-center">
+      <div class="max-w-2xl rounded-[2rem] bg-white p-8 shadow-premium md:p-12">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-premium-gold">Заявка отправлена</p>
+        <h1 class="mt-4 font-display text-5xl leading-tight tracking-[-0.04em] text-navy">Спасибо, мы получили ваше сообщение</h1>
+        <p class="mt-5 text-lg leading-8 text-premium-muted">Мы свяжемся с вами после обработки заявки и уточним детали консультации.</p>
+        <a routerLink="/" class="mt-8 inline-flex min-h-12 items-center rounded-full bg-navy px-6 text-sm font-bold text-white transition hover:bg-navy-700">Вернуться на главную</a>
+      </div>
+    </section>
+  `,
+})
+export class ThankYouPageComponent {
+  private readonly seo = inject(SeoService);
+
+  constructor() {
+    this.seo.apply({
+      title: 'Заявка отправлена | FinSky',
+      description: 'Спасибо за обращение в FinSky. Мы получили вашу заявку.',
+      h1: 'Спасибо, мы получили ваше сообщение',
+    });
+  }
+}

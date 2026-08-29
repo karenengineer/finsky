@@ -1,0 +1,13 @@
+<main>
+  <a class="logo" routerLink="/">{{ 'common.brand' | translate }}</a>
+  <section>
+    <span>403</span>
+    <div class="section-kicker">{{ 'accessDenied.kicker' | translate }}</div>
+    <h1 class="display">{{ 'accessDenied.title' | translate }}</h1>
+    <p>{{ 'accessDenied.text' | translate }}</p>
+    <div class="actions">
+      <a class="btn" routerLink="/admin">{{ 'accessDenied.dashboard' | translate }}</a>
+      <button class="btn btn-outline" type="button" (click)="logout()">{{ 'accessDenied.logout' | translate }}</button>
+    </div>
+  </section>
+</main>

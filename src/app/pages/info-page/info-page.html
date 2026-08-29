@@ -1,0 +1,20 @@
+<app-site-header />
+<main>
+  @if (type() === 'about') {
+    <section class="page-hero"><div class="container"><div class="section-kicker">{{ 'aboutPage.kicker' | translate }}</div><h1 class="display">{{ 'aboutPage.title' | translate }}</h1><p>{{ 'aboutPage.intro' | translate }}</p></div></section>
+    <section class="section"><div class="container split"><div><div class="section-kicker">{{ 'aboutPage.principles' | translate }}</div><h2 class="section-title">{{ 'aboutPage.heading' | translate }}</h2></div><div class="prose"><p>{{ 'aboutPage.p1' | translate }}</p><p>{{ 'aboutPage.p2' | translate }}</p><blockquote>{{ 'aboutPage.quote' | translate }}</blockquote></div></div></section>
+    <section class="values section"><div class="container"><div class="value-grid"><article><span>01</span><h3>{{ 'aboutPage.values.accuracy.title' | translate }}</h3><p>{{ 'aboutPage.values.accuracy.text' | translate }}</p></article><article><span>02</span><h3>{{ 'aboutPage.values.partnership.title' | translate }}</h3><p>{{ 'aboutPage.values.partnership.text' | translate }}</p></article><article><span>03</span><h3>{{ 'aboutPage.values.privacy.title' | translate }}</h3><p>{{ 'aboutPage.values.privacy.text' | translate }}</p></article></div></div></section>
+  } @else if (type() === 'services') {
+    <section class="page-hero"><div class="container"><div class="section-kicker">{{ 'servicesPage.kicker' | translate }}</div><h1 class="display">{{ 'servicesPage.title' | translate }}</h1><p>{{ 'servicesPage.intro' | translate }}</p></div></section>
+    <section class="section"><div class="container service-catalog">
+      <a routerLink="/services/accounting"><span>01</span><div><h2>{{ 'servicesPage.items.accounting.title' | translate }}</h2><p>{{ 'servicesPage.items.accounting.text' | translate }}</p></div><b>{{ 'servicesPage.items.accounting.price' | translate }}</b><i>↗</i></a>
+      <a routerLink="/services/tax"><span>02</span><div><h2>{{ 'servicesPage.items.tax.title' | translate }}</h2><p>{{ 'servicesPage.items.tax.text' | translate }}</p></div><b>{{ 'servicesPage.items.tax.price' | translate }}</b><i>↗</i></a>
+      <a routerLink="/services/recovery"><span>03</span><div><h2>{{ 'servicesPage.items.recovery.title' | translate }}</h2><p>{{ 'servicesPage.items.recovery.text' | translate }}</p></div><b>{{ 'servicesPage.items.recovery.price' | translate }}</b><i>↗</i></a>
+      <a routerLink="/services/reporting"><span>04</span><div><h2>{{ 'servicesPage.items.reporting.title' | translate }}</h2><p>{{ 'servicesPage.items.reporting.text' | translate }}</p></div><b>{{ 'servicesPage.items.reporting.price' | translate }}</b><i>↗</i></a>
+    </div></section>
+  } @else {
+    <section class="page-hero compact"><div class="container"><div class="section-kicker">{{ 'privacyPage.kicker' | translate }}</div><h1 class="display">{{ 'privacyPage.title' | translate }}</h1><p>{{ 'privacyPage.revision' | translate }}</p></div></section>
+    <section class="section"><div class="container legal"><aside>{{ 'privacyPage.contents' | translate }}<br><a href="#general">{{ 'privacyPage.sections.general.title' | translate }}</a><a href="#data">{{ 'privacyPage.sections.data.title' | translate }}</a><a href="#purpose">{{ 'privacyPage.sections.purpose.title' | translate }}</a><a href="#rights">{{ 'privacyPage.sections.rights.title' | translate }}</a></aside><article><h2 id="general">{{ 'privacyPage.sections.general.title' | translate }}</h2><p>{{ 'privacyPage.sections.general.text' | translate }}</p><h2 id="data">{{ 'privacyPage.sections.data.title' | translate }}</h2><p>{{ 'privacyPage.sections.data.text' | translate }}</p><h2 id="purpose">{{ 'privacyPage.sections.purpose.title' | translate }}</h2><p>{{ 'privacyPage.sections.purpose.text' | translate }}</p><h2 id="rights">{{ 'privacyPage.sections.rights.title' | translate }}</h2><p>{{ 'privacyPage.sections.rights.text' | translate }}</p></article></div></section>
+  }
+</main>
+<app-site-footer />
