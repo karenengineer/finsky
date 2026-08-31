@@ -1,7 +1,9 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { combineLatest, switchMap } from 'rxjs';
+import { LocalizationService } from '../../../core/i18n/localization.service';
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { PublicContentApiService } from '../../../core/public-api/public-content-api.service';
 import { ApiState, HomeSectionCopy, ServiceDetail } from '../../../core/public-api/public-content.models';
 import { SeoService } from '../../../core/seo/seo.service';
@@ -11,14 +13,14 @@ import { SectionStateComponent } from '../../components/section-state/section-st
 @Component({
   selector: 'app-service-detail-page',
   standalone: true,
-  imports: [ConsultationFormComponent, RouterLink, SectionStateComponent],
+  imports: [ConsultationFormComponent, RouterLink, SectionStateComponent, TranslatePipe],
   template: `
     @if (state().status === 'loading') {
-      <app-section-state label="Загрузка" message="Загружаем услугу..." />
+      <app-section-state [label]="'public.states.loading' | translate" [message]="'public.states.loadingService' | translate" />
     } @else if (state().data; as service) {
       <section class="bg-premium-paper/70 py-20 md:py-28">
         <div class="mx-auto w-[min(calc(100%-2rem),1200px)]">
-          <a routerLink="/services" class="text-sm font-bold text-premium-gold">← Все услуги</a>
+          <a routerLink="/services" class="text-sm font-bold text-premium-gold">← {{ 'common.actions.allServices' | translate }}</a>
           <h1 class="mt-6 max-w-4xl font-display text-5xl leading-tight tracking-[-0.04em] text-navy md:text-7xl">{{ service.seo.h1 || service.title }}</h1>
           <p class="mt-7 max-w-3xl text-xl leading-9 text-premium-muted">{{ service.fullDescription }}</p>
         </div>
@@ -26,8 +28,8 @@ import { SectionStateComponent } from '../../components/section-state/section-st
       <section class="bg-white py-16 md:py-24">
         <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-premium-gold">Что входит</p>
-            <h2 class="mt-4 font-display text-4xl tracking-[-0.04em] text-navy">Состав услуги</h2>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-premium-gold">{{ 'serviceDetail.included' | translate }}</p>
+            <h2 class="mt-4 font-display text-4xl tracking-[-0.04em] text-navy">{{ 'serviceDetail.heading' | translate }}</h2>
           </div>
           <div class="grid gap-4">
             @for (item of service.includes; track item) {
@@ -38,34 +40,28 @@ import { SectionStateComponent } from '../../components/section-state/section-st
           </div>
         </div>
       </section>
-      <app-consultation-form [services]="[service]" [copy]="consultationCopy" />
+      <app-consultation-form [services]="[service]" [copy]="consultationCopy()" />
     } @else {
-      <app-section-state label="Не найдено" message="Такая услуга не опубликована или была удалена." />
+      <app-section-state [label]="'public.states.notFound' | translate" [message]="'public.states.serviceNotFound' | translate" />
     }
   `,
 })
 export class ServiceDetailPageComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly api = inject(PublicContentApiService);
+  private readonly localization = inject(LocalizationService);
   private readonly seo = inject(SeoService);
   private readonly destroyRef = inject(DestroyRef);
 
   protected readonly state = signal<ApiState<ServiceDetail>>({ status: 'loading', data: null, error: null });
-  protected readonly consultationCopy: HomeSectionCopy['consultation'] = {
-    eyebrow: 'Заявка на консультацию',
-    title: 'Обсудим вашу задачу',
-    description: 'Оставьте контакты, и мы свяжемся с вами, чтобы уточнить детали.',
-    submitLabel: 'Отправить заявку',
-    submittingLabel: 'Отправляем...',
-    successRedirect: '/thank-you',
-    consentText: 'Я согласен на обработку данных и ознакомлен с',
-  };
+  protected readonly consultationCopy = signal<HomeSectionCopy['consultation']>(this.buildConsultationCopy());
 
   constructor() {
-    this.route.paramMap
+    combineLatest([this.route.paramMap, toObservable(this.localization.language)])
       .pipe(
-        switchMap((params) => {
+        switchMap(([params]) => {
           this.state.set({ status: 'loading', data: null, error: null });
+          this.consultationCopy.set(this.buildConsultationCopy());
           return this.api.getServiceBySlug(params.get('slug') ?? '');
         }),
         takeUntilDestroyed(this.destroyRef),
@@ -77,7 +73,19 @@ export class ServiceDetailPageComponent {
           }
           this.state.set({ status: service ? 'success' : 'empty', data: service, error: null });
         },
-        error: () => this.state.set({ status: 'error', data: null, error: 'Не удалось загрузить услугу.' }),
+        error: () => this.state.set({ status: 'error', data: null, error: this.localization.translate('public.states.serviceLoadError') }),
       });
+  }
+
+  private buildConsultationCopy(): HomeSectionCopy['consultation'] {
+    return {
+      eyebrow: this.localization.translate('home.consultation.kicker'),
+      title: this.localization.translate('home.consultation.title'),
+      description: this.localization.translate('home.consultation.description'),
+      submitLabel: this.localization.translate('common.actions.send'),
+      submittingLabel: this.localization.translate('public.form.submitting'),
+      successRedirect: '/thank-you',
+      consentText: this.localization.translate('public.form.consentPrefix'),
+    };
   }
 }

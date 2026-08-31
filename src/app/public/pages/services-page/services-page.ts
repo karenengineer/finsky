@@ -1,6 +1,9 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { LocalizationService } from '../../../core/i18n/localization.service';
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { PublicContentApiService } from '../../../core/public-api/public-content-api.service';
 import { ApiState, ServiceSummary } from '../../../core/public-api/public-content.models';
 import { SeoService } from '../../../core/seo/seo.service';
@@ -9,18 +12,18 @@ import { SectionStateComponent } from '../../components/section-state/section-st
 @Component({
   selector: 'app-services-page',
   standalone: true,
-  imports: [RouterLink, SectionStateComponent],
+  imports: [RouterLink, SectionStateComponent, TranslatePipe],
   template: `
     <section class="bg-premium-paper/70 py-20 md:py-28">
       <div class="mx-auto w-[min(calc(100%-2rem),1200px)]">
-        <p class="text-xs font-bold uppercase tracking-[0.2em] text-premium-gold">Услуги</p>
-        <h1 class="mt-4 max-w-4xl font-display text-5xl leading-tight tracking-[-0.04em] text-navy md:text-7xl">Бухгалтерские и налоговые услуги для бизнеса</h1>
-        <p class="mt-7 max-w-3xl text-xl leading-9 text-premium-muted">Выберите направление, чтобы подробнее узнать о формате работы и составе услуги.</p>
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-premium-gold">{{ 'servicesPage.kicker' | translate }}</p>
+        <h1 class="mt-4 max-w-4xl font-display text-5xl leading-tight tracking-[-0.04em] text-navy md:text-7xl">{{ 'servicesPage.title' | translate }}</h1>
+        <p class="mt-7 max-w-3xl text-xl leading-9 text-premium-muted">{{ 'servicesPage.intro' | translate }}</p>
       </div>
     </section>
 
     @if (state().status === 'loading') {
-      <app-section-state label="Загрузка" message="Загружаем список услуг..." />
+      <app-section-state [label]="'public.states.loading' | translate" [message]="'public.states.loadingServices' | translate" />
     } @else if (state().data?.length) {
       <section class="bg-white py-16 md:py-24">
         <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -29,18 +32,21 @@ import { SectionStateComponent } from '../../components/section-state/section-st
               <span class="text-sm font-bold text-premium-gold">0{{ service.order }}</span>
               <h2 class="mt-8 text-2xl font-bold tracking-tight text-navy">{{ service.title }}</h2>
               <p class="mt-4 leading-7 text-premium-muted">{{ service.shortDescription }}</p>
-              <span class="mt-8 inline-flex text-sm font-bold text-navy transition group-hover:text-premium-gold">Открыть услугу →</span>
+              <span class="mt-8 inline-flex text-sm font-bold text-navy transition group-hover:text-premium-gold">{{ 'public.actions.openService' | translate }}</span>
             </a>
           }
         </div>
       </section>
+    } @else if (state().status === 'error') {
+      <app-section-state [label]="'public.states.error' | translate" [message]="state().error ?? ('public.states.servicesLoadError' | translate)" />
     } @else {
-      <app-section-state label="Пусто" message="Услуги пока не опубликованы." />
+      <app-section-state [label]="'public.states.empty' | translate" [message]="'public.states.noServices' | translate" />
     }
   `,
 })
 export class ServicesPageComponent {
   private readonly api = inject(PublicContentApiService);
+  private readonly localization = inject(LocalizationService);
   private readonly seo = inject(SeoService);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -53,12 +59,14 @@ export class ServicesPageComponent {
       h1: 'Бухгалтерские и налоговые услуги для бизнеса',
     });
 
-    this.api
-      .getServices()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    toObservable(this.localization.language)
+      .pipe(
+        switchMap(() => this.api.getServices()),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe({
         next: (services) => this.state.set({ status: services.length ? 'success' : 'empty', data: services, error: null }),
-        error: () => this.state.set({ status: 'error', data: null, error: 'Не удалось загрузить услуги.' }),
+        error: () => this.state.set({ status: 'error', data: null, error: this.localization.translate('public.states.servicesLoadError') }),
       });
   }
 }

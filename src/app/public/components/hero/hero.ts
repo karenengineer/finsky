@@ -1,11 +1,12 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { HeroContent } from '../../../core/public-api/public-content.models';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   template: `
     <section class="relative overflow-hidden bg-white">
       <div class="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-navy-50 to-transparent"></div>
@@ -45,15 +46,15 @@ import { HeroContent } from '../../../core/public-api/public-content.models';
             <div class="mt-7 grid gap-4 sm:grid-cols-3">
               <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
                 <span class="block text-2xl font-bold">01</span>
-                <span class="mt-1 block text-xs text-white/70">учет</span>
+                <span class="mt-1 block text-xs text-white/70">{{ 'public.hero.accounting' | translate }}</span>
               </div>
               <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
                 <span class="block text-2xl font-bold">02</span>
-                <span class="mt-1 block text-xs text-white/70">налоги</span>
+                <span class="mt-1 block text-xs text-white/70">{{ 'public.hero.taxes' | translate }}</span>
               </div>
               <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
                 <span class="block text-2xl font-bold">03</span>
-                <span class="mt-1 block text-xs text-white/70">отчетность</span>
+                <span class="mt-1 block text-xs text-white/70">{{ 'public.hero.reporting' | translate }}</span>
               </div>
             </div>
           </div>

@@ -1,5 +1,8 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
+import { LocalizationService } from '../../../core/i18n/localization.service';
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { PublicContentApiService } from '../../../core/public-api/public-content-api.service';
 import { ApiState, PublicHomeContent } from '../../../core/public-api/public-content.models';
 import { SeoService } from '../../../core/seo/seo.service';
@@ -28,17 +31,18 @@ import { WorkProcessComponent } from '../../components/work-process/work-process
     StatisticsComponent,
     TestimonialsComponent,
     WorkProcessComponent,
+    TranslatePipe,
   ],
   template: `
     @switch (state().status) {
       @case ('loading') {
-        <app-section-state label="Загрузка" message="Готовим содержимое сайта..." />
+        <app-section-state [label]="'public.states.loading' | translate" [message]="'public.states.loadingHome' | translate" />
       }
       @case ('error') {
-        <app-section-state label="Ошибка" [message]="state().error ?? 'Не удалось загрузить данные.'" />
+        <app-section-state [label]="'public.states.error' | translate" [message]="state().error ?? ('public.states.homeLoadError' | translate)" />
       }
       @case ('empty') {
-        <app-section-state label="Пусто" message="Контент главной страницы пока не опубликован." />
+        <app-section-state [label]="'public.states.empty' | translate" [message]="'public.states.homeEmpty' | translate" />
       }
       @case ('success') {
         @if (state().data; as content) {
@@ -58,6 +62,7 @@ import { WorkProcessComponent } from '../../components/work-process/work-process
 })
 export class HomePageComponent {
   private readonly api = inject(PublicContentApiService);
+  private readonly localization = inject(LocalizationService);
   private readonly seo = inject(SeoService);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -68,9 +73,14 @@ export class HomePageComponent {
   });
 
   constructor() {
-    this.api
-      .getHome()
+    toObservable(this.localization.language)
       .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        switchMap(() => {
+          this.state.set({ status: 'loading', data: null, error: null });
+          return this.api.getHome();
+        }),
+      )
       .subscribe({
         next: (content) => {
           this.seo.apply(content.seo);
@@ -84,7 +94,7 @@ export class HomePageComponent {
           this.state.set({
             status: 'error',
             data: null,
-            error: 'Не удалось получить данные главной страницы.',
+          error: this.localization.translate('public.states.homeLoadError'),
           });
         },
       });

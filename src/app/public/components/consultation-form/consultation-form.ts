@@ -2,13 +2,15 @@ import { Component, inject, input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
+import { LocalizationService } from '../../../core/i18n/localization.service';
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { PublicContentApiService } from '../../../core/public-api/public-content-api.service';
 import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public-content.models';
 
 @Component({
   selector: 'app-consultation-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, TranslatePipe],
   template: `
     <section id="consultation" class="bg-navy py-20 text-white md:py-28">
       <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
@@ -25,13 +27,13 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
         <form class="rounded-[2rem] bg-white p-5 text-premium-ink shadow-premium md:p-8" [formGroup]="form" (ngSubmit)="submit()">
           <div class="grid gap-5 md:grid-cols-2">
             <label class="grid gap-2">
-              <span class="text-sm font-bold text-navy">Имя *</span>
+              <span class="text-sm font-bold text-navy">{{ 'common.form.name' | translate }} *</span>
               <input class="min-h-13 rounded-2xl border border-premium-line px-4 outline-none focus:border-premium-gold focus:ring-4 focus:ring-premium-gold/10" formControlName="name" autocomplete="name" />
               @if (showError('name')) { <span class="text-sm text-red-700">{{ errorText('name') }}</span> }
             </label>
 
             <label class="grid gap-2">
-              <span class="text-sm font-bold text-navy">Телефон *</span>
+              <span class="text-sm font-bold text-navy">{{ 'common.form.phone' | translate }} *</span>
               <input class="min-h-13 rounded-2xl border border-premium-line px-4 outline-none focus:border-premium-gold focus:ring-4 focus:ring-premium-gold/10" formControlName="phone" autocomplete="tel" />
               @if (showError('phone')) { <span class="text-sm text-red-700">{{ errorText('phone') }}</span> }
             </label>
@@ -43,14 +45,14 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
             </label>
 
             <label class="grid gap-2">
-              <span class="text-sm font-bold text-navy">Компания</span>
+              <span class="text-sm font-bold text-navy">{{ 'common.form.company' | translate }}</span>
               <input class="min-h-13 rounded-2xl border border-premium-line px-4 outline-none focus:border-premium-gold focus:ring-4 focus:ring-premium-gold/10" formControlName="company" autocomplete="organization" />
             </label>
 
             <label class="grid gap-2 md:col-span-2">
-              <span class="text-sm font-bold text-navy">Интересующая услуга</span>
+              <span class="text-sm font-bold text-navy">{{ 'public.form.service' | translate }}</span>
               <select class="min-h-13 rounded-2xl border border-premium-line px-4 outline-none focus:border-premium-gold focus:ring-4 focus:ring-premium-gold/10" formControlName="service">
-                <option value="">Выберите услугу</option>
+                <option value="">{{ 'public.form.servicePlaceholder' | translate }}</option>
                 @for (service of services(); track service.id) {
                   <option [value]="service.slug">{{ service.title }}</option>
                 }
@@ -58,7 +60,7 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
             </label>
 
             <label class="grid gap-2 md:col-span-2">
-              <span class="text-sm font-bold text-navy">Сообщение</span>
+              <span class="text-sm font-bold text-navy">{{ 'public.form.message' | translate }}</span>
               <textarea class="min-h-32 rounded-2xl border border-premium-line px-4 py-3 outline-none focus:border-premium-gold focus:ring-4 focus:ring-premium-gold/10" formControlName="message"></textarea>
             </label>
           </div>
@@ -67,7 +69,7 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
             <input type="checkbox" class="mt-1 size-4 rounded border-premium-line accent-navy" formControlName="consent" />
             <span>
               {{ copy().consentText }}
-              <a routerLink="/privacy" class="font-bold text-navy underline">политикой конфиденциальности</a>.
+              <a routerLink="/privacy" class="font-bold text-navy underline">{{ 'common.form.privacy' | translate }}</a>.
             </span>
           </label>
           @if (showError('consent')) { <span class="mt-2 block text-sm text-red-700">{{ errorText('consent') }}</span> }
@@ -95,6 +97,7 @@ export class ConsultationFormComponent {
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(PublicContentApiService);
   private readonly router = inject(Router);
+  private readonly localization = inject(LocalizationService);
 
   protected readonly isSubmitting = signal(false);
   protected readonly submitError = signal<string | null>(null);
@@ -117,15 +120,15 @@ export class ConsultationFormComponent {
   protected errorText(controlName: keyof typeof this.form.controls): string {
     const control = this.form.controls[controlName];
     if (control.hasError('required') || control.hasError('requiredTrue')) {
-      return 'Это поле необходимо заполнить.';
+      return this.localization.translate('public.form.errors.required');
     }
     if (control.hasError('email')) {
-      return 'Введите корректный email.';
+      return this.localization.translate('public.form.errors.email');
     }
     if (control.hasError('minlength')) {
-      return 'Проверьте корректность значения.';
+      return this.localization.translate('public.form.errors.minlength');
     }
-    return 'Проверьте поле.';
+    return this.localization.translate('public.form.errors.default');
   }
 
   protected submit(): void {
@@ -142,7 +145,7 @@ export class ConsultationFormComponent {
       .pipe(finalize(() => this.isSubmitting.set(false)))
       .subscribe({
         next: () => void this.router.navigateByUrl(this.copy().successRedirect),
-        error: () => this.submitError.set('Не удалось отправить заявку. Проверьте соединение и попробуйте еще раз.'),
+        error: () => this.submitError.set(this.localization.translate('public.form.submitError')),
       });
   }
 }

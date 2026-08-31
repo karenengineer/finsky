@@ -1,9 +1,11 @@
 import { Component, input } from '@angular/core';
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { HomeSectionCopy, Testimonial } from '../../../core/public-api/public-content.models';
 
 @Component({
   selector: 'app-testimonials',
   standalone: true,
+  imports: [TranslatePipe],
   template: `
     <section class="bg-premium-paper/70 py-20 md:py-28">
       <div class="mx-auto w-[min(calc(100%-2rem),1200px)]">
@@ -15,7 +17,7 @@ import { HomeSectionCopy, Testimonial } from '../../../core/public-api/public-co
           @for (testimonial of testimonials(); track testimonial.id) {
             <article class="rounded-premium border border-premium-line bg-white p-7 shadow-card">
               @if (testimonial.isDemo) {
-                <span class="rounded-full bg-premium-paper px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-premium-gold">Шаблонный отзыв</span>
+                <span class="rounded-full bg-premium-paper px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-premium-gold">{{ 'public.testimonials.demoBadge' | translate }}</span>
               }
               <p class="mt-5 text-lg leading-8 text-premium-ink">“{{ testimonial.text }}”</p>
               <div class="mt-7 border-t border-premium-line pt-5">

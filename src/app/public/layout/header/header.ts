@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { LanguageSwitcherComponent } from '../../../shared/language-switcher/language-switcher';
 
 interface NavItem {
-  label: string;
+  labelKey: string;
   href: string;
   fragment?: string;
 }
@@ -11,7 +12,7 @@ interface NavItem {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, LanguageSwitcherComponent],
+  imports: [RouterLink, RouterLinkActive, LanguageSwitcherComponent, TranslatePipe],
   template: `
     <header class="sticky top-0 z-50 border-b border-premium-line/80 bg-white/90 backdrop-blur-xl">
       <div class="mx-auto flex h-20 w-[min(calc(100%-2rem),1200px)] items-center justify-between">
@@ -23,7 +24,7 @@ interface NavItem {
           </span>
         </a>
 
-        <nav class="hidden items-center gap-8 text-sm font-semibold text-navy lg:flex" aria-label="Primary navigation">
+        <nav class="hidden items-center gap-8 text-sm font-semibold text-navy lg:flex" [attr.aria-label]="'common.a11y.primaryNavigation' | translate">
           @for (item of navItems; track item.href + item.fragment) {
             <a
               [routerLink]="item.href"
@@ -32,7 +33,7 @@ interface NavItem {
               [routerLinkActiveOptions]="{ exact: item.href === '/' && !item.fragment }"
               class="transition hover:text-premium-gold"
             >
-              {{ item.label }}
+              {{ item.labelKey | translate }}
             </a>
           }
         </nav>
@@ -44,7 +45,7 @@ interface NavItem {
             fragment="consultation"
             class="inline-flex min-h-12 items-center rounded-full bg-navy px-5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-navy-700"
           >
-            Консультация
+            {{ 'common.nav.getConsultation' | translate }}
           </a>
         </div>
 
@@ -55,7 +56,7 @@ interface NavItem {
           aria-controls="mobile-menu"
           (click)="toggleMenu()"
         >
-          <span class="sr-only">Открыть меню</span>
+          <span class="sr-only">{{ 'common.a11y.openMenu' | translate }}</span>
           <span class="grid gap-1.5">
             <span class="block h-0.5 w-5 bg-current"></span>
             <span class="block h-0.5 w-5 bg-current"></span>
@@ -74,13 +75,13 @@ interface NavItem {
                 class="rounded-2xl px-4 py-3 hover:bg-navy-50"
                 (click)="closeMenu()"
               >
-                {{ item.label }}
+                {{ item.labelKey | translate }}
               </a>
             }
             <div class="mt-3 flex items-center justify-between rounded-2xl bg-premium-paper p-3">
               <app-language-switcher />
               <a routerLink="/" fragment="consultation" class="rounded-full bg-navy px-4 py-3 text-sm text-white" (click)="closeMenu()">
-                Консультация
+                {{ 'common.nav.getConsultation' | translate }}
               </a>
             </div>
           </nav>
@@ -93,12 +94,12 @@ export class HeaderComponent {
   protected readonly isMenuOpen = signal(false);
 
   protected readonly navItems: NavItem[] = [
-    { label: 'Главная', href: '/' },
-    { label: 'Услуги', href: '/services' },
-    { label: 'О компании', href: '/about' },
-    { label: 'Процесс', href: '/', fragment: 'process' },
-    { label: 'FAQ', href: '/', fragment: 'faq' },
-    { label: 'Контакты', href: '/contacts' },
+    { labelKey: 'common.nav.home', href: '/' },
+    { labelKey: 'common.nav.services', href: '/services' },
+    { labelKey: 'common.nav.about', href: '/about' },
+    { labelKey: 'common.nav.process', href: '/', fragment: 'process' },
+    { labelKey: 'common.nav.faq', href: '/', fragment: 'faq' },
+    { labelKey: 'common.nav.contacts', href: '/contacts' },
   ];
 
   protected toggleMenu(): void {
