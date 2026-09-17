@@ -1,6 +1,6 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { LocalizationService } from '../../../core/i18n/localization.service';
 import { TranslatePipe } from '../../../core/i18n/translate.pipe';
@@ -39,7 +39,7 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
             </label>
 
             <label class="grid gap-2">
-              <span class="text-sm font-bold text-navy">Email *</span>
+              <span class="text-sm font-bold text-navy">{{ 'common.contact.emailLabel' | translate }} *</span>
               <input class="min-h-13 rounded-2xl border border-premium-line px-4 outline-none focus:border-premium-gold focus:ring-4 focus:ring-premium-gold/10" formControlName="email" autocomplete="email" />
               @if (showError('email')) { <span class="text-sm text-red-700">{{ errorText('email') }}</span> }
             </label>
@@ -78,12 +78,13 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
             <p class="mt-5 rounded-2xl bg-red-50 p-4 text-sm font-semibold text-red-800">{{ submitError() }}</p>
           }
 
+          <p class="mt-5 text-sm leading-6 text-premium-muted">{{ 'public.form.emailNotice' | translate }}</p>
           <button
             type="submit"
             class="mt-7 inline-flex min-h-14 w-full items-center justify-center rounded-full bg-navy px-7 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-navy-700 disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
             [disabled]="isSubmitting()"
           >
-            {{ isSubmitting() ? copy().submittingLabel : copy().submitLabel }}
+            {{ copy().submitLabel }}
           </button>
         </form>
       </div>
@@ -96,7 +97,6 @@ export class ConsultationFormComponent {
 
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(PublicContentApiService);
-  private readonly router = inject(Router);
   private readonly localization = inject(LocalizationService);
 
   protected readonly isSubmitting = signal(false);
@@ -141,10 +141,22 @@ export class ConsultationFormComponent {
 
     this.isSubmitting.set(true);
     this.api
-      .submitConsultationRequest(this.form.getRawValue())
+      .getContacts()
       .pipe(finalize(() => this.isSubmitting.set(false)))
       .subscribe({
-        next: () => void this.router.navigateByUrl(this.copy().successRedirect),
+        next: contacts => {
+          const value = this.form.getRawValue();
+          const service = this.services().find(item => item.slug === value.service);
+          const body = [
+            `${this.localization.translate('common.form.name')}: ${value.name}`,
+            `${this.localization.translate('common.form.phone')}: ${value.phone}`,
+            `${this.localization.translate('common.contact.emailLabel')}: ${value.email}`,
+            `${this.localization.translate('common.form.company')}: ${value.company}`,
+            `${this.localization.translate('public.form.service')}: ${service?.title ?? ''}`,
+            `${this.localization.translate('public.form.message')}: ${value.message}`,
+          ].join('\n');
+          window.location.href = `mailto:${contacts.email}?subject=${encodeURIComponent(this.copy().title)}&body=${encodeURIComponent(body)}`;
+        },
         error: () => this.submitError.set(this.localization.translate('public.form.submitError')),
       });
   }

@@ -1,0 +1,210 @@
+{
+  "seo": {
+    "title": "FinKeep — accounting and tax consulting",
+    "description": "We build accurate accounting, reduce tax risks, and free your time for decisions that move the business forward.",
+    "h1": "Business finances —"
+  },
+  "hero": {
+    "eyebrow": "Accounting and tax consulting",
+    "title": "Business finances — under control.",
+    "description": "We build accurate accounting, reduce tax risks, and free your time for decisions that move the business forward.",
+    "imageUrl": "assets/images/hero.jpg",
+    "primaryCtaLabel": "Get a consultation",
+    "primaryCtaHref": "#consultation",
+    "secondaryCtaLabel": "Explore services",
+    "secondaryCtaHref": "/services",
+    "highlights": [
+      "Confidential",
+      "Contract-based work",
+      "Dedicated expert"
+    ],
+    "imageAlt": "Accounting documents on a desk"
+  },
+  "benefits": [
+    {
+      "id": "accuracy",
+      "title": "We own the result",
+      "description": "Responsibilities and deadlines are fixed in the contract. We do not pass issues back to the client.",
+      "order": 1
+    },
+    {
+      "id": "clarity",
+      "title": "We speak clearly",
+      "description": "We translate legal requirements into practical decisions and understandable actions.",
+      "order": 2
+    },
+    {
+      "id": "privacy",
+      "title": "We protect your data",
+      "description": "Strict confidentiality, secure document exchange, and access controls.",
+      "order": 3
+    },
+    {
+      "id": "focus",
+      "title": "We look ahead",
+      "description": "We flag risks early and prepare the business for change instead of dealing with consequences.",
+      "order": 4
+    }
+  ],
+  "about": {
+    "eyebrow": "About FinKeep",
+    "title": "The expertise of a major consultancy. The attention of a personal adviser.",
+    "description": "We brought together accountants, tax consultants, and financial analysts to solve business challenges comprehensively. Each client has a dedicated team that knows the company and remains available.",
+    "ctaLabel": "Learn more",
+    "ctaHref": "/about",
+    "imageUrl": "assets/images/about.jpg",
+    "imageAlt": "Financial consultants' workspace"
+  },
+  "team": {
+    "isVisible": true,
+    "backgroundImageUrl": "assets/images/team-background.jpg",
+    "overlayOpacity": 0.72,
+    "label": "Our Team",
+    "title": "An expert team for confident business management",
+    "description": "We combine accounting accuracy, tax expertise, and a practical approach so businesses can focus on sustainable growth.",
+    "ctaText": "Learn more about us",
+    "ctaLink": "/about",
+    "trustPoints": [
+      "Professional approach",
+      "Confidentiality",
+      "Business-focused consulting"
+    ],
+    "backgroundImageAlt": "The FinSky team in the office"
+  },
+  "statistics": [
+    {
+      "id": "clients",
+      "value": "[N]+",
+      "label": "companies can be shown after the data is confirmed",
+      "order": 1
+    },
+    {
+      "id": "reports",
+      "value": "100%",
+      "label": "focus on deadlines, accuracy, and clear communication",
+      "order": 2
+    },
+    {
+      "id": "city",
+      "value": "Yerevan",
+      "label": "local expertise for businesses in Armenia",
+      "order": 3
+    }
+  ],
+  "workSteps": [
+    {
+      "id": "brief",
+      "title": "Introduction",
+      "description": "We discuss your business, current situation, and objectives.",
+      "order": 1
+    },
+    {
+      "id": "audit",
+      "title": "Assessment",
+      "description": "We evaluate accounting records and potential risks.",
+      "order": 2
+    },
+    {
+      "id": "plan",
+      "title": "Transition plan",
+      "description": "We agree on scope, timing, and responsibilities.",
+      "order": 3
+    },
+    {
+      "id": "work",
+      "title": "Ongoing support",
+      "description": "We take over the work and establish regular processes.",
+      "order": 4
+    },
+    {
+      "id": "report",
+      "title": "Status updates",
+      "description": "We keep you informed with clear statuses and recommendations for management decisions.",
+      "order": 5
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "demo-1",
+      "authorName": "Template example",
+      "authorRole": "Business owner",
+      "text": "“FinSky has become more than an external accounting provider; it is part of our management team. We understand the numbers, see risks early, and make decisions with confidence.”",
+      "isDemo": true,
+      "order": 1
+    },
+    {
+      "id": "demo-2",
+      "authorName": "Template example",
+      "authorRole": "Startup founder",
+      "text": "We needed clear answers without complicated terms. The working process was calm and transparent. Demo text to be replaced with a real review.",
+      "isDemo": true,
+      "order": 2
+    }
+  ],
+  "faq": [
+    {
+      "id": "start",
+      "question": "Can we outsource our entire accounting function?",
+      "answer": "Yes. We provide an end-to-end service, from source documents and payroll to reporting and regulatory requests.",
+      "order": 1
+    },
+    {
+      "id": "remote",
+      "question": "How do we transition from our current accountant?",
+      "answer": "We begin with a rapid audit, create a handover plan, and coordinate the transfer of records and documents.",
+      "order": 2
+    },
+    {
+      "id": "confidentiality",
+      "question": "How do you ensure confidentiality?",
+      "answer": "We document obligations in the contract, control access, and use secure document exchange channels.",
+      "order": 3
+    },
+    {
+      "id": "price",
+      "question": "What determines the service price?",
+      "answer": "Your tax system, transaction volume, number of employees, and scope of work. We confirm the offer after a short briefing.",
+      "order": 4
+    }
+  ],
+  "sections": {
+    "services": {
+      "eyebrow": "What we do",
+      "title": "A finance function you can trust",
+      "description": "We do more than keep records: we understand your business, identify risks early, and explain complex matters clearly.",
+      "allServicesLabel": "All services",
+      "detailLabel": "Learn more",
+      "emptyLabel": "No services have been published yet."
+    },
+    "benefits": {
+      "eyebrow": "Our approach",
+      "title": "Peace of mind built on a system",
+      "description": "Financial discipline becomes part of your business instead of a source of constant uncertainty."
+    },
+    "statistics": {
+      "eyebrow": "Trust",
+      "title": "Indicators that can be replaced with verified company data"
+    },
+    "workProcess": {
+      "eyebrow": "How we get started",
+      "title": "A clear transition. A predictable result.",
+      "description": "We organise onboarding so your team can continue working as usual."
+    },
+    "testimonials": {
+      "eyebrow": "Client perspective",
+      "title": "What clients value in accounting support"
+    },
+    "faq": {
+      "eyebrow": "Frequently asked questions",
+      "title": "The essentials, clearly explained",
+      "description": "Didn’t find your answer? Describe your situation and an expert will contact you."
+    },
+    "consultation": {
+      "eyebrow": "The first step",
+      "title": "Let’s discuss your needs confidentially",
+      "description": "Tell us about your needs and prepare an email. You can review and send it from your email app.",
+      "submitLabel": "Prepare email",
+      "consentText": "I agree to personal data processing and have read the"
+    }
+  }
+}

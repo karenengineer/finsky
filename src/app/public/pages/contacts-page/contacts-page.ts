@@ -49,12 +49,6 @@ export class ContactsPageComponent {
   protected readonly consultationCopy = signal<HomeSectionCopy['consultation']>(this.buildConsultationCopy());
 
   constructor() {
-    this.seo.apply({
-      title: 'Контакты | FinSky',
-      description: 'Свяжитесь с FinSky для консультации по бухгалтерии, налогам и финансовым процессам бизнеса.',
-      h1: 'Контакты FinSky',
-    });
-
     toObservable(this.localization.language)
       .pipe(
         switchMap(() => {
@@ -69,6 +63,7 @@ export class ContactsPageComponent {
       )
       .subscribe({
         next: ({ services, contacts }) => {
+          this.seo.apply(contacts.seo);
           this.services.set(services);
           this.state.set({ status: 'success', data: contacts, error: null });
         },
@@ -80,10 +75,8 @@ export class ContactsPageComponent {
     return {
       eyebrow: this.localization.translate('home.consultation.kicker'),
       title: this.localization.translate('home.consultation.title'),
-      description: this.localization.translate('home.consultation.description'),
-      submitLabel: this.localization.translate('common.actions.send'),
-      submittingLabel: this.localization.translate('public.form.submitting'),
-      successRedirect: '/thank-you',
+      description: this.localization.translate('public.form.emailDescription'),
+      submitLabel: this.localization.translate('public.form.openEmail'),
       consentText: this.localization.translate('public.form.consentPrefix'),
     };
   }

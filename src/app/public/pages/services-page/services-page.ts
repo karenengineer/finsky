@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, effect, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
@@ -29,7 +29,7 @@ import { SectionStateComponent } from '../../components/section-state/section-st
         <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] gap-5 md:grid-cols-2 lg:grid-cols-3">
           @for (service of state().data; track service.id) {
             <a [routerLink]="['/services', service.slug]" class="group rounded-premium border border-premium-line bg-white p-7 shadow-card transition hover:-translate-y-1 hover:shadow-premium">
-              <span class="text-sm font-bold text-premium-gold">0{{ service.order }}</span>
+              <span class="text-sm font-bold text-premium-gold">{{ service.order.toString().padStart(2, '0') }}</span>
               <h2 class="mt-8 text-2xl font-bold tracking-tight text-navy">{{ service.title }}</h2>
               <p class="mt-4 leading-7 text-premium-muted">{{ service.shortDescription }}</p>
               <span class="mt-8 inline-flex text-sm font-bold text-navy transition group-hover:text-premium-gold">{{ 'public.actions.openService' | translate }}</span>
@@ -53,11 +53,11 @@ export class ServicesPageComponent {
   protected readonly state = signal<ApiState<ServiceSummary[]>>({ status: 'loading', data: null, error: null });
 
   constructor() {
-    this.seo.apply({
-      title: 'Услуги | FinSky',
-      description: 'Бухгалтерское сопровождение, налоговый консалтинг, отчетность, payroll и финансовые консультации.',
-      h1: 'Бухгалтерские и налоговые услуги для бизнеса',
-    });
+    effect(() => this.seo.apply({
+      title: this.localization.translate('seo.services.title'),
+      description: this.localization.translate('seo.services.description'),
+      h1: this.localization.translate('servicesPage.title'),
+    }));
 
     toObservable(this.localization.language)
       .pipe(

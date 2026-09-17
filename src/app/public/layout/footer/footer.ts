@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { catchError, of, switchMap } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '../../../core/i18n/translate.pipe';
+import { LocalizationService } from '../../../core/i18n/localization.service';
+import { PublicContentApiService } from '../../../core/public-api/public-content-api.service';
 
 @Component({
   selector: 'app-footer',
@@ -27,21 +31,27 @@ import { TranslatePipe } from '../../../core/i18n/translate.pipe';
         <div>
           <h2 class="text-sm font-bold uppercase tracking-[0.18em] text-premium-gold">{{ 'common.footer.connect' | translate }}</h2>
           <div class="mt-4 grid gap-3 text-sm text-white/75">
-            <a href="mailto:hello@finsky.am" class="hover:text-white">{{ 'common.contact.email' | translate }}</a>
-            <a href="tel:+37400000000" class="hover:text-white">{{ 'common.contact.phone' | translate }}</a>
-            <span>{{ 'common.contact.office' | translate }}</span>
+            @if (contacts(); as contact) {
+              <a [href]="'mailto:' + contact.email" class="hover:text-white">{{ contact.email }}</a>
+              <span>{{ contact.phone }}</span>
+              <span>{{ contact.address }}</span>
+            }
           </div>
         </div>
       </div>
       <div class="border-t border-white/10">
         <div class="mx-auto flex w-[min(calc(100%-2rem),1200px)] flex-col gap-3 py-5 text-xs text-white/55 md:flex-row md:items-center md:justify-between">
           <span>{{ 'common.footer.copyright' | translate: { year: currentYear } }}</span>
-          <a routerLink="/admin" class="hover:text-white">Admin</a>
         </div>
       </div>
     </footer>
   `,
 })
 export class FooterComponent {
+  private readonly localization = inject(LocalizationService);
+  private readonly content = inject(PublicContentApiService);
+  protected readonly contacts = toSignal(toObservable(this.localization.language).pipe(
+    switchMap(() => this.content.getContacts().pipe(catchError(() => of(null)))),
+  ));
   protected readonly currentYear = new Date().getFullYear();
 }

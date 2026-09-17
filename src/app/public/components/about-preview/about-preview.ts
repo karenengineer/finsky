@@ -20,7 +20,7 @@ import { AboutPreview, TeamTrustSection } from '../../../core/public-api/public-
           </a>
         </div>
         <div class="rounded-[2rem] bg-premium-paper p-4">
-          <div class="aspect-[4/3] rounded-[1.5rem] bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=85')] bg-cover bg-center shadow-card"></div>
+          <div class="aspect-[4/3] rounded-[1.5rem] bg-cover bg-center shadow-card" role="img" [attr.aria-label]="about().imageAlt" [style.background-image]="'url(' + about().imageUrl + ')'"></div>
         </div>
       </div>
 
@@ -28,8 +28,8 @@ import { AboutPreview, TeamTrustSection } from '../../../core/public-api/public-
         <div class="mx-auto mt-16 w-[min(calc(100%-2rem),1200px)] overflow-hidden rounded-[2rem] shadow-premium">
           <section
             class="relative bg-cover bg-center px-6 py-20 md:px-12 md:py-28"
-            [style.background-image]="'url(' + team().backgroundImageUrl + ')'"
           >
+            <div class="absolute inset-0 bg-cover bg-center" role="img" [attr.aria-label]="team().backgroundImageAlt" [style.background-image]="'url(' + team().backgroundImageUrl + ')'"></div>
             <div class="absolute inset-0 bg-navy" [style.opacity]="team().overlayOpacity"></div>
             <div class="relative max-w-3xl text-white">
               <p class="text-xs font-bold uppercase tracking-[0.2em] text-premium-gold">{{ team().label }}</p>

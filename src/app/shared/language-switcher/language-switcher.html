@@ -6,7 +6,7 @@
     [attr.aria-expanded]="open()"
     (click)="toggle($event)"
   >
-    {{ currentLanguage() | uppercase }}
+    {{ ('common.languages.' + currentLanguage() + '.shortLabel') | translate }}
     <span>⌄</span>
   </button>
   @if (open()) {
@@ -17,8 +17,8 @@
           [class.active]="currentLanguage() === language.code"
           (click)="select(language.code, $event)"
         >
-          <span>{{ language.shortLabel }}</span>
-          {{ language.label }}
+          <span>{{ ('common.languages.' + language.code + '.shortLabel') | translate }}</span>
+          {{ ('common.languages.' + language.code + '.label') | translate }}
         </button>
       }
     </div>

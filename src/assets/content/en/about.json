@@ -1,0 +1,14 @@
+{
+  "slug": "about",
+  "title": "We make complex finances clear",
+  "intro": "FinKeep is a team of accountants, tax consultants, and analysts. We help business owners see the real picture and make confident decisions.",
+  "body": [
+    "We started with a simple idea: high-quality accounting support should give business owners not only accurate reports, but also peace of mind.",
+    "That is why we study the business model, identify risks early, and remain available when decisions need to be made quickly. Every client knows their team personally."
+  ],
+  "seo": {
+    "title": "About us — FinKeep",
+    "description": "FinKeep is a team of accountants, tax consultants, and analysts. We help business owners see the real picture and make confident decisions.",
+    "h1": "We make complex finances clear"
+  }
+}

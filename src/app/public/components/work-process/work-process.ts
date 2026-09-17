@@ -17,7 +17,7 @@ import { HomeSectionCopy, WorkStep } from '../../../core/public-api/public-conte
         <div class="mt-12 grid gap-4">
           @for (step of steps(); track step.id) {
             <article class="grid gap-5 rounded-premium border border-premium-line bg-white p-6 shadow-card md:grid-cols-[5rem_1fr] md:items-start">
-              <div class="font-display text-4xl text-premium-gold">0{{ step.order }}</div>
+              <div class="font-display text-4xl text-premium-gold">{{ step.order.toString().padStart(2, '0') }}</div>
               <div>
                 <h3 class="text-2xl font-bold text-navy">{{ step.title }}</h3>
                 <p class="mt-3 max-w-3xl leading-7 text-premium-muted">{{ step.description }}</p>

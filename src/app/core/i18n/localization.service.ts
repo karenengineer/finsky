@@ -39,7 +39,7 @@ export class LocalizationService {
     }
 
     if (!this.dictionaries.has(language)) {
-      const response = await fetch(`/assets/i18n/${language}.json`);
+      const response = await fetch(`assets/i18n/${language}.json`);
       if (!response.ok) {
         throw new Error(`Could not load translations for "${language}".`);
       }

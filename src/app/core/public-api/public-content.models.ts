@@ -27,6 +27,7 @@ export interface HeroContent {
   title: string;
   description: string;
   imageUrl: string;
+  imageAlt: string;
   primaryCtaLabel: string;
   primaryCtaHref: string;
   secondaryCtaLabel: string;
@@ -86,6 +87,8 @@ export interface FaqItem {
 }
 
 export interface AboutPreview {
+  imageUrl: string;
+  imageAlt: string;
   eyebrow: string;
   title: string;
   description: string;
@@ -96,6 +99,7 @@ export interface AboutPreview {
 export interface TeamTrustSection {
   isVisible: boolean;
   backgroundImageUrl: string;
+  backgroundImageAlt: string;
   overlayOpacity: number;
   label: string;
   title: string;
@@ -106,6 +110,7 @@ export interface TeamTrustSection {
 }
 
 export interface ContactSettings {
+  seo: SeoMeta;
   title: string;
   description: string;
   phone: string;
@@ -134,8 +139,6 @@ export interface HomeSectionCopy {
   faq: SectionHeadingContent;
   consultation: SectionHeadingContent & {
     submitLabel: string;
-    submittingLabel: string;
-    successRedirect: string;
     consentText: string;
   };
 }
@@ -153,20 +156,4 @@ export interface PublicHomeContent {
   faq: FaqItem[];
   contacts: ContactSettings;
   sections: HomeSectionCopy;
-}
-
-export interface ConsultationRequestPayload {
-  name: string;
-  phone: string;
-  email: string;
-  company?: string;
-  service?: string;
-  message?: string;
-  consent: boolean;
-}
-
-export interface ConsultationResponse {
-  id: string;
-  status: 'NEW' | 'IN_PROGRESS' | 'COMPLETED' | 'REJECTED';
-  createdAt: string;
 }

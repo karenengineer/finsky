@@ -31,7 +31,7 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
                 [routerLink]="['/services', service.slug]"
                 class="group min-h-64 rounded-premium border border-premium-line bg-white p-7 shadow-card transition hover:-translate-y-1 hover:shadow-premium"
               >
-                <span class="text-sm font-bold text-premium-gold">0{{ service.order }}</span>
+                <span class="text-sm font-bold text-premium-gold">{{ service.order.toString().padStart(2, '0') }}</span>
                 <h3 class="mt-8 text-2xl font-bold tracking-tight text-navy">{{ service.title }}</h3>
                 <p class="mt-4 leading-7 text-premium-muted">{{ service.shortDescription }}</p>
                 <span class="mt-8 inline-flex text-sm font-bold text-navy transition group-hover:text-premium-gold">{{ copy().detailLabel }} →</span>

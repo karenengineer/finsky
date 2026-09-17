@@ -1,12 +1,11 @@
-import { UpperCasePipe } from '@angular/common';
 import { Component, inject, input, signal } from '@angular/core';
 import { LocalizationService } from '../../core/i18n/localization.service';
-import { LANGUAGE_OPTIONS, LanguageCode } from '../../core/i18n/localization.types';
+import { SUPPORTED_LANGUAGES, LanguageCode } from '../../core/i18n/localization.types';
 import { TranslatePipe } from '../../core/i18n/translate.pipe';
 
 @Component({
   selector: 'app-language-switcher',
-  imports: [UpperCasePipe, TranslatePipe],
+  imports: [TranslatePipe],
   templateUrl: './language-switcher.html',
   styleUrl: './language-switcher.scss',
   host: {
@@ -18,7 +17,7 @@ export class LanguageSwitcherComponent {
 
   readonly theme = input<'dark' | 'light'>('dark');
   readonly open = signal(false);
-  readonly languages = LANGUAGE_OPTIONS;
+  readonly languages = SUPPORTED_LANGUAGES.map(code => ({ code }));
   readonly currentLanguage = this.localization.language;
 
   toggle(event: Event): void {

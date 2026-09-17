@@ -1,5 +1,10 @@
 {
+  "seo": {"services":{"title":"Services — FinKeep","description":"From daily accounting to complex tax matters, we provide exactly the expertise your company needs."},"notFound":{"title":"Page not found — FinKeep","description":"The address may have changed or been entered incorrectly. Let’s return to financial clarity."},"thankYou":{"title":"Prepare email","description":"The button opens your email app with a prepared message. Send it from that app; this website does not store requests."}},
   "common": {
+    "brandInitial": "F",
+    "headerTagline": "Accounting consulting",
+    "heroNumbers": { "accounting": "01", "taxes": "02", "reporting": "03" },
+    "languages": { "hy": { "label": "Հայերեն", "shortLabel": "HY" }, "en": { "label": "English", "shortLabel": "EN" }, "ru": { "label": "Русский", "shortLabel": "RU" } },
     "brand": "FinSky",
     "tagline": "accounting · tax · consulting",
     "nav": { "home": "Home", "about": "About us", "services": "Services", "benefits": "Benefits", "process": "Process", "faq": "FAQ", "contacts": "Contacts", "consult": "Discuss your needs", "getConsultation": "Get a consultation" },
@@ -8,7 +13,7 @@
     "form": {
       "name": "Your name", "namePlaceholder": "First and last name", "phone": "Phone", "phonePlaceholder": "+7 (___) ___-__-__", "contact": "Phone or email", "company": "Company", "companyPlaceholder": "Company name", "task": "Briefly describe your needs", "taskPlaceholder": "For example: we want to outsource our accounting", "messagePlaceholder": "Describe the situation in a few sentences", "consent": "By clicking the button, you agree to the privacy policy.", "privacy": "privacy policy"
     },
-    "a11y": { "selectLanguage": "Select language", "openMenu": "Open menu", "primaryNavigation": "Primary navigation", "financialAnalytics": "Financial analytics", "previousReview": "Previous review", "nextReview": "Next review" },
+    "a11y": { "brandHome": "FinSky home", "selectLanguage": "Select language", "openMenu": "Open menu", "primaryNavigation": "Primary navigation", "financialAnalytics": "Financial analytics", "previousReview": "Previous review", "nextReview": "Next review" },
     "months": { "jan": "Jan", "feb": "Feb", "mar": "Mar", "apr": "Apr", "may": "May", "jun": "Jun", "jul": "Jul" },
     "footer": { "description": "Accounting support, tax consulting, and financial clarity for businesses in Yerevan, Armenia.", "company": "Company", "connect": "Contact us", "copyright": "© {{year}} FinSky. All rights reserved.", "privacy": "Privacy policy", "disclaimer": "Information on this website does not constitute a public offer" }
   },
@@ -81,7 +86,7 @@
       "servicePlaceholder": "Choose a service",
       "message": "Message",
       "consentPrefix": "I agree to personal data processing and have read the",
-      "submitting": "Sending...",
+      "emailDescription": "Tell us about your needs and prepare an email. You can review and send it from your email app.", "emailNotice": "The button opens your email app with a prepared message. Send it from that app; this website does not store requests.", "openEmail": "Prepare email", "submitting": "Sending...",
       "submitError": "Could not send the request. Check your connection and try again.",
       "errors": {
         "required": "This field is required.",
@@ -159,7 +164,7 @@
     }
   },
   "successPage": { "kicker": "Request sent", "title": "Thank you for your trust", "text": "We have received your message. A relevant expert will review it and contact you within one business day.", "back": "Return to home", "request": "Request number: FK-260609" },
-  "notFoundPage": { "title": "This page does not exist", "text": "The address may have changed or been entered incorrectly. Let’s return to financial clarity." },
+  "notFoundPage": { "code": "404", "title": "This page does not exist", "text": "The address may have changed or been entered incorrectly. Let’s return to financial clarity." },
   "login": {
     "panel": "Control panel", "brandTitle": "Your website content under control", "brandText": "Secure access to requests, services, and company materials.", "welcome": "Welcome back", "title": "Sign in", "text": "Use your corporate account.", "email": "Email address", "password": "Password", "forgot": "Forgot password?", "remember": "Remember me on this device", "signIn": "Sign in", "loading": "Signing in…", "invalidCredentials": "Invalid email or password", "emailError": "Enter a valid email address.", "passwordError": "Password must contain at least 8 characters.", "support": "Having trouble signing in?", "writeSupport": "Contact support"
   },

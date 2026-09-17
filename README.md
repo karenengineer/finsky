@@ -1,227 +1,216 @@
-# FinKeep
+# FinSky
 
-Angular public website and administration UI with a production-ready NestJS, PostgreSQL, and Prisma REST API.
+Статический Angular-сайт с Tailwind CSS и локализацией HY / EN / RU.
+На хостинге нужны только раздача файлов, HTTPS и SPA fallback.
+Админка, NestJS, авторизация, Prisma, PostgreSQL и Docker удалены.
 
-## Requirements
+## Локальный запуск
 
-- Node.js 22+
-- Docker Desktop or PostgreSQL 16+
-- npm
-
-## Environment
-
-Create `.env` from `.env.example` and set:
-
-```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/finkeep?schema=public"
-PORT=3000
-WEB_ORIGIN="http://localhost:4200"
-JWT_ACCESS_SECRET="at-least-32-random-characters"
-JWT_REFRESH_SECRET="another-at-least-32-random-characters"
-JWT_ACCESS_TTL="15m"
-JWT_REFRESH_TTL_DAYS=7
-COOKIE_SECURE=false
-PUBLIC_BASE_URL="http://localhost:3000"
-UPLOAD_DIR="public/uploads"
-MAX_UPLOAD_SIZE_MB=5
-
-ADMIN_EMAIL="admin@example.com"
-ADMIN_PASSWORD="ChangeMe123"
-ADMIN_FIRST_NAME="System"
-ADMIN_LAST_NAME="Administrator"
-```
-
-Use `COOKIE_SECURE=true` in production over HTTPS. Use independent, random JWT secrets.
-
-## First setup
+Node.js требуется только на компьютере разработчика или в CI для сборки.
+Используйте Node.js 22.12+ либо совместимую более новую версию.
 
 ```bash
-npm install
-docker compose up -d
-npm run prisma:generate
-npm run prisma:migrate
-npm run prisma:seed
-npm run start:dev
+npm ci
+npm start
 ```
 
-Open:
+Откройте http://localhost:4200.
 
-- Website: `http://localhost:4200`
-- Admin login: `http://localhost:4200/admin/login`
-- API: `http://localhost:3000/api`
-- Swagger: `http://localhost:3000/api/docs`
-
-The seed is idempotent. If `ADMIN_EMAIL` already exists, it does not create a duplicate.
-
-## Authentication
-
-- Access tokens are short-lived JWTs held only in Angular memory.
-- Refresh JWTs are stored in an `HttpOnly`, `SameSite=Strict` cookie.
-- Refresh sessions are hashed in PostgreSQL and rotated on every refresh.
-- Angular restores a session through `/api/auth/refresh`, then validates it through `/api/auth/me`.
-- Every authenticated backend request rechecks that the database user remains `ACTIVE`.
-- Login errors are intentionally generic: `Invalid email or password`.
-- Login is rate limited to five attempts per minute per client.
-
-Required auth endpoints:
+## Контент
 
 ```text
-POST /api/auth/login
-POST /api/auth/refresh
-POST /api/auth/logout
-GET  /api/auth/me
+src/assets/content/
+  ru/  home.json, services.json, about.json, privacy.json, contacts.json
+  en/  home.json, services.json, about.json, privacy.json, contacts.json
+  hy/  home.json, services.json, about.json, privacy.json, contacts.json
+src/assets/i18n/     ru.json, en.json, hy.json
+src/assets/images/  hero.jpg, about.jpg, team-background.jpg
 ```
 
-## Public API
+- Контент страниц и SEO: файлы соответствующего языка в `content`.
+- Главная: `home.json` — Hero, преимущества, команда, этапы, отзывы, FAQ и заголовки секций.
+- Услуги: `services.json` — общий источник для главной, списка и детальных страниц. Slug должен быть уникальным.
+- Контакты: `contacts.json` — общий источник для страницы контактов, footer и получателя письма из формы.
+- Интерфейс: `i18n/*.json` — меню, подписи полей, состояния и остальные общие тексты. Сохранены прежние переводы, включая неиспользуемые ключи админки.
+- Изображения: замените файлы в `images` или измените пути в `home.json`: `hero.imageUrl`, `about.imageUrl`, `team.backgroundImageUrl`.
+- Команда: `team.isVisible`, `team.overlayOpacity`, тексты, CTA и trustPoints в `home.json`.
+- Пути изображений: `assets/images/имя-файла`, без внешних URL.
+- Изменения контента вносите для всех трёх языков, затем пересоберите сайт.
 
-```text
-GET  /api/public/home
-GET  /api/public/pages/:slug
-GET  /api/public/services
-GET  /api/public/services/:slug
-GET  /api/public/benefits
-GET  /api/public/statistics
-GET  /api/public/work-steps
-GET  /api/public/testimonials
-GET  /api/public/faq
-GET  /api/public/contacts
-POST /api/public/consultation-requests
-```
+Контент читается через HttpClient из локальных JSON и кешируется отдельно по языкам.
+Ошибки чтения отображаются существующими состояниями страниц; backend fallback отсутствует.
 
-Only records with `status = PUBLISHED` are returned from public content endpoints. Public consultation requests are rate-limited to five submissions per minute per client.
+## Форма консультации
 
-## Admin API
+Форма сохраняет валидацию и внешний вид, но открывает почтовое приложение через `mailto:`
+с подготовленным письмом на email из `contacts.json`.
+Пользователь должен самостоятельно отправить письмо в почтовом приложении.
+Сайт не сохраняет заявки и не подтверждает доставку. Автоматическая отправка требует отдельного сервиса.
+Маршруты `/thank-you` и `/success` сохранены для совместимости и объясняют отправку через email;
+форма не перенаправляет на них как на подтверждение доставки.
 
-All admin endpoints require a Bearer access token. Refresh tokens are stored in an `HttpOnly` cookie and rotated through `/api/auth/refresh`.
+## Источник перенесённых данных
 
-```text
-GET    /api/admin/dashboard
+При преобразовании подключение к PostgreSQL было недоступно.
+Использованы существующие публичные mock-данные, проверенные относительно seed,
+и текущие JSON-переводы. Данные, изменённые только в недоступной базе, не экспортированы.
+Изображения Hero и About сохранены локально из ранее используемых источников;
+для команды используется оптимизированный `team-background.jpg`.
+Исходный PNG сохранён в `design-assets/team-background.png` и не включается в сборку.
+Контакты содержат прежний placeholder телефона; проверьте телефон и email перед публикацией.
+Демо-отзывы и неподтверждённые показатели необходимо заменить подтверждёнными данными.
+Локальная база и её Docker volumes не удалялись.
 
-GET    /api/admin/pages
-POST   /api/admin/pages
-PATCH  /api/admin/pages/:id
-DELETE /api/admin/pages/:id
+## Проверка и публикация
 
-GET    /api/admin/services
-GET    /api/admin/services/:id
-POST   /api/admin/services
-PATCH  /api/admin/services/:id
-DELETE /api/admin/services/:id
+### Где редактировать
 
-GET    /api/admin/benefits
-POST   /api/admin/benefits
-PATCH  /api/admin/benefits/:id
-DELETE /api/admin/benefits/:id
+Header и footer используют `common` в `src/assets/i18n/{ru,en,hy}.json`:
+`brand`, `brandInitial`, `headerTagline`, `nav`, `footer`, `a11y`.
+Названия и сокращения языков находятся в `common.languages`.
+Поля формы и ошибки находятся в `common.form` и `public.form`.
+Неиспользуемые прежние ключи сохранены для совместимости; текст секций главной меняйте в `content/*/home.json`.
 
-GET    /api/admin/statistics
-POST   /api/admin/statistics
-PATCH  /api/admin/statistics/:id
-DELETE /api/admin/statistics/:id
+SEO главной, About, Privacy и услуг находится в `seo` соответствующего контентного JSON;
+SEO контактов — в `contacts.json`. Для списка услуг, страницы подготовки письма и 404
+используйте `seo.services`, `seo.thankYou`, `seo.notFound` в переводах интерфейса.
+При смене языка Angular обновляет контент, `document.lang`, title и meta description.
+Начальные title/description в HTML production-сборки автоматически берутся из русского `home.json`.
 
-GET    /api/admin/work-steps
-POST   /api/admin/work-steps
-PATCH  /api/admin/work-steps/:id
-DELETE /api/admin/work-steps/:id
+Для изображений укажите `hero.imageUrl` / `hero.imageAlt`, `about.imageUrl` / `about.imageAlt`,
+`team.backgroundImageUrl` / `team.backgroundImageAlt` в каждом `home.json`.
+Alt-текст должен описывать изображение на языке файла. Background-визуалы имеют доступные подписи.
+`team.isVisible: false` скрывает секцию; `team.overlayOpacity` принимает число от 0 до 1.
 
-GET    /api/admin/testimonials
-POST   /api/admin/testimonials
-PATCH  /api/admin/testimonials/:id
-DELETE /api/admin/testimonials/:id
+### Добавление услуги и FAQ
 
-GET    /api/admin/faq
-POST   /api/admin/faq
-PATCH  /api/admin/faq/:id
-DELETE /api/admin/faq/:id
+Добавьте объект в `services.json` **каждого** языка с одинаковыми `id`, `slug` и `order`,
+но переведёнными текстами. Пример структуры:
 
-GET    /api/admin/contacts
-PATCH  /api/admin/contacts
-
-GET    /api/admin/consultation-requests?page=1&limit=20&status=NEW&q=anna
-GET    /api/admin/consultation-requests/:id
-PATCH  /api/admin/consultation-requests/:id
-
-GET    /api/admin/seo
-POST   /api/admin/seo
-PATCH  /api/admin/seo/:id
-DELETE /api/admin/seo/:id
-
-GET    /api/admin/media
-POST   /api/admin/media
-DELETE /api/admin/media/:id
-```
-
-For compatibility with the Angular admin UI, `/api/admin/requests` and `/api/admin/requests/:id` aliases are also available.
-
-## Content localization
-
-The database keeps first-release Russian/default fields directly on each public entity and reserves `translations Json?` for localized HY/EN/RU overrides. A future localization service can resolve `Accept-Language` by merging base fields with `translations[language]` without changing table structure.
-
-## Upload security
-
-Media upload accepts only JPG, PNG, WebP, and SVG files. The current limit is 5 MB per file. Files are stored under `UPLOAD_DIR` and served from `/uploads/*`; store uploads on object storage such as S3 in production.
-
-## Roles
-
-- `SUPER_ADMIN`: full access and admin-user management.
-- `ADMIN`: content and request management.
-- `VIEWER`: read-only dashboard access.
-
-Only users with `status = ACTIVE` can authenticate. Supported statuses are `ACTIVE`, `INVITED`, `BLOCKED`, and `DELETED`.
-
-The system prevents users from blocking/deleting themselves and prevents removal or demotion of the final active `SUPER_ADMIN`.
-
-## Protecting backend routes
-
-All NestJS routes require JWT authentication by default. Mark an endpoint public only when necessary:
-
-```ts
-@Public()
-@Post('login')
-login() {}
-```
-
-Restrict roles with:
-
-```ts
-@Roles(AdminRole.SUPER_ADMIN, AdminRole.ADMIN)
-@Patch('content/:id')
-updateContent() {}
-```
-
-Admin-user endpoints are restricted to `SUPER_ADMIN`:
-
-```text
-GET    /api/admin/users
-POST   /api/admin/users
-GET    /api/admin/users/:id
-PATCH  /api/admin/users/:id
-PATCH  /api/admin/users/:id/status
-DELETE /api/admin/users/:id
-```
-
-## Protecting Angular routes
-
-Use `authGuard` for authenticated admin routes and `roleGuard` with route data for restricted sections:
-
-```ts
+```json
 {
-  path: 'admin/users',
-  canActivate: [authGuard, roleGuard],
-  data: { roles: ['SUPER_ADMIN'] }
+  "id": "new-service",
+  "slug": "new-service",
+  "title": "Название услуги",
+  "shortDescription": "Описание для карточки",
+  "fullDescription": "Описание для детальной страницы",
+  "includes": ["Что входит в услугу"],
+  "order": 7,
+  "seo": {
+    "title": "Название услуги | FinSky",
+    "description": "Описание страницы для поисковых систем",
+    "h1": "Название услуги"
+  }
 }
 ```
 
-Frontend visibility is only a convenience. The NestJS guard remains the authoritative permission check.
+Главная, список и маршрут `/services/new-service` используют этот общий источник;
+добавлять Angular routes или компоненты не требуется.
+Порядок карточек определяется расположением объектов в JSON; `order` задаёт отображаемый номер.
 
-## Commands
+Для FAQ добавьте объект в массив `faq` в каждом `home.json`:
+
+```json
+{
+  "id": "documents",
+  "question": "Какие документы нужны для начала работы?",
+  "answer": "Укажите фактический порядок передачи документов вашей компании.",
+  "order": 5
+}
+```
+
+Используйте одинаковые ID во всех языках и уникальные slug услуг.
+Массивы обычных текстов (`body`, `includes`) могут иметь разную длину;
+структура объектов и набор контентных записей должны совпадать.
+
+### Автоматическая проверка
+
+`npm run check:content` проверяет ключи и типы HY/EN/RU, параметры `{{...}}`,
+структуру контентных файлов, одинаковые ID, уникальность slug/ID,
+SEO, существование локальных изображений, alt-тексты и настройки команды.
+Проверка также выявляет отсутствующие буквальные ключи переводов, используемые компонентами.
+Она запускается автоматически **перед** `npm run build`; ошибки блокируют сборку
+и показывают путь к неверному полю. Правильность перевода остаётся предметом редакторской проверки.
 
 ```bash
-npm start                 # Angular with /api proxy
-npm run start:api         # NestJS API
-npm run start:dev         # Angular and NestJS together
-npm run build:all         # Production builds
-npm test -- --watch=false # Angular unit tests
-npm run prisma:migrate    # Create a development migration
-npm run prisma:deploy     # Apply committed migrations
-npm run prisma:seed       # Create the first SUPER_ADMIN
+npm run check:content
+npm run test:content
+npm test -- --watch=false
+npm run build
 ```
+
+```bash
+npm test -- --watch=false
+npm run build
+```
+
+Загрузите **содержимое** `dist/finkeep/browser/` в корень сайта
+(обычно `public_html`) через файловый менеджер или FTP, включая скрытый `.htaccess`.
+Не загружайте исходники, `node_modules`, локальные `.env` или архивы базы данных.
+
+В сборку включён `public/.htaccess` для LiteSpeed/Apache:
+существующие файлы раздаются напрямую, публичные маршруты открывают `index.html`.
+Проверьте, что хостинг разрешает mod_rewrite/совместимые правила.
+Для другого web server настройте аналогичный SPA fallback.
+Для размещения в подкаталоге соберите с `ng build --base-href /имя-каталога/`.
+
+После публикации проверьте прямое открытие и обновление `/about`, `/services`,
+`/services/accounting-support`, `/contacts`, `/privacy` и переключение языков.
+При обновлении загружайте всю новую сборку. Внешние Google Fonts сохранены для текущего дизайна.
+
+## Shared hosting с LiteSpeed
+
+Готовый каталог: `/Users/karenengineer/Documents/finkeep/dist/finkeep/browser/`.
+Размер текущей сборки: **1 085 328 байт (1,04 MiB)**, значительно меньше лимита 600 MB.
+Для загрузки через файловый менеджер также подготовлен архив
+`dist/finkeep/finsky-shared-hosting.zip`; внутри находятся файлы сайта без обёртки `browser`.
+Архив является снимком текущей сборки: после следующих изменений пересоберите его отдельно.
+Node.js, SSH, PostgreSQL и запуск серверного процесса на hosting не нужны.
+
+### Первая публикация
+
+1. Проверьте реальные контакты и замените оставшиеся placeholders/демо-контент.
+2. Локально выполните `npm ci` и `npm run build` — проверка JSON запускается автоматически.
+3. В панели hosting включите SSL для домена и переадресацию HTTP на HTTPS.
+4. Откройте корень нужного домена в файловом менеджере, обычно `public_html`.
+5. Загрузите содержимое `dist/finkeep/browser/` по FTP либо загрузите ZIP и распакуйте прямо в корень домена. `index.html` должен находиться непосредственно в корне, а не в `browser/`.
+6. Включите показ скрытых файлов и убедитесь, что `.htaccess` загружен рядом с `index.html`. Удалите из корня ZIP после распаковки.
+7. Проверьте HTTPS, прямое открытие и обновление вложенных маршрутов, все три языка, изображения и подготовку email из формы.
+
+Обычные права файлов — 644, каталогов — 755; используйте настройки панели hosting.
+Не загружайте весь репозиторий, `design-assets`, `node_modules`, `.env` или архивы базы.
+Размещение в подкаталоге: используйте `npm run build -- --base-href /имя-каталога/`
+и загружайте содержимое сборки в соответствующий каталог.
+
+### Кеширование и маршруты
+
+`.htaccess` обслуживает существующие файлы/каталоги напрямую.
+Остальные публичные адреса возвращают `index.html`; отсутствующий `/assets/*`
+остаётся настоящим 404, чтобы ошибки путей не маскировались HTML.
+
+Hashed JS/CSS (`main-…`, `chunk-…`, `styles-…`, `polyfills-…`) получают
+`Cache-Control: public, max-age=31536000, immutable`.
+HTML, редактируемые JSON и изображения без хеша получают `Cache-Control: no-cache`:
+браузер может хранить их, но должен перепроверять актуальность перед использованием.
+Настройки `mod_expires` отключены для исключения конфликтующего наследуемого TTL.
+Для HTML/CSS/JS/JSON/SVG включается сжатие, если hosting поддерживает `mod_deflate`.
+
+Правила проверены локально на Apache с реальным `.htaccess`, включая прямые запросы,
+повторные запросы вложенных маршрутов и заголовки кеширования.
+В браузере также проверено обновление детальной страницы услуги.
+На конкретном LiteSpeed-хостинге требуется разрешённый rewrite и обработка `.htaccess`.
+Если вложенные URL дают 404, проверьте расположение файла и поддержку rewrite в панели hosting.
+Если включён дополнительный LiteSpeed/CDN cache, исключите HTML/JSON из долгого кеша.
+
+### Обновление сайта
+
+1. Измените JSON/изображения для нужных языков и выполните `npm run build`.
+2. Сделайте резервную копию предыдущих файлов сайта через файловый менеджер.
+3. Загрузите новые JS/CSS и `assets`, затем замените `index.html` и `.htaccess`. При распаковке ZIP подтвердите замену файлов.
+4. Очистите дополнительный кеш hosting/CDN, если он включён. Выполните обновление страницы и проверьте изменённые тексты на каждом языке.
+5. Не удаляйте прежние hashed chunks сразу: они могут понадобиться уже открытым вкладкам. Удалите файлы старого релиза после завершения проверки и периода перехода.
+
+Сканирование текущей сборки не обнаружило localhost URL, `/api/` запросов
+или внешних временных изображений. Фон команды уменьшен с 1,5 MB PNG до примерно
+248 KB JPEG при сохранении разрешения 1672 × 941.
+Форма использует почтовое приложение пользователя; автоматической отправки через сервер нет.

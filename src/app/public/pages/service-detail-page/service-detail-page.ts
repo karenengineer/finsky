@@ -70,6 +70,11 @@ export class ServiceDetailPageComponent {
         next: (service) => {
           if (service) {
             this.seo.apply(service.seo);
+          } else {
+            this.seo.apply({
+              title: this.localization.translate('seo.notFound.title'),
+              description: this.localization.translate('public.states.serviceNotFound'),
+            });
           }
           this.state.set({ status: service ? 'success' : 'empty', data: service, error: null });
         },
@@ -81,10 +86,8 @@ export class ServiceDetailPageComponent {
     return {
       eyebrow: this.localization.translate('home.consultation.kicker'),
       title: this.localization.translate('home.consultation.title'),
-      description: this.localization.translate('home.consultation.description'),
-      submitLabel: this.localization.translate('common.actions.send'),
-      submittingLabel: this.localization.translate('public.form.submitting'),
-      successRedirect: '/thank-you',
+      description: this.localization.translate('public.form.emailDescription'),
+      submitLabel: this.localization.translate('public.form.openEmail'),
       consentText: this.localization.translate('public.form.consentPrefix'),
     };
   }

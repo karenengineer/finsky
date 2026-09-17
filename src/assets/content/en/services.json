@@ -1,0 +1,116 @@
+[
+  {
+    "id": "accounting-support",
+    "slug": "accounting-support",
+    "title": "Accounting support",
+    "shortDescription": "Full-cycle accounting, payroll, reporting, and communication with authorities.",
+    "fullDescription": "We take full responsibility for accounting and reporting, so you can manage the business rather than accounting processes.",
+    "includes": [
+      "Primary document processing",
+      "Accounting records",
+      "Reporting preparation",
+      "Regular accounting consultations"
+    ],
+    "order": 1,
+    "seo": {
+      "title": "Accounting support | FinSky",
+      "description": "Full-cycle accounting, payroll, reporting, and communication with authorities.",
+      "h1": "Accounting support"
+    }
+  },
+  {
+    "id": "tax-consulting",
+    "slug": "tax-consulting",
+    "title": "Tax consulting",
+    "shortDescription": "Risk assessment, structuring, audit support, and transaction advice.",
+    "fullDescription": "We help assess tax consequences and choose a lawful, economically sound approach.",
+    "includes": [
+      "Tax situation analysis",
+      "Tax risk assessment",
+      "Practical recommendations",
+      "Consultations on specific transactions"
+    ],
+    "order": 2,
+    "seo": {
+      "title": "Tax consulting | FinSky",
+      "description": "Risk assessment, structuring, audit support, and transaction advice.",
+      "h1": "Tax consulting"
+    }
+  },
+  {
+    "id": "reporting",
+    "slug": "reporting",
+    "title": "Reporting preparation and filing",
+    "shortDescription": "We prepare and submit accounting and tax reports with attention to deadlines and source data.",
+    "fullDescription": "We structure source data, check key figures, and help submit reports on time.",
+    "includes": [
+      "Source data preparation",
+      "Key figure checks",
+      "Reporting preparation",
+      "Submission deadline coordination"
+    ],
+    "order": 3,
+    "seo": {
+      "title": "Reporting preparation and filing | FinSky",
+      "description": "We prepare and submit accounting and tax reports with attention to deadlines and source data.",
+      "h1": "Reporting preparation and filing"
+    }
+  },
+  {
+    "id": "payroll",
+    "slug": "payroll",
+    "title": "Payroll calculation",
+    "shortDescription": "Salary, tax, and related accrual calculations for regular business processes.",
+    "fullDescription": "We help establish a careful payroll process, from accrual calculations to supporting data and regular consultations.",
+    "includes": [
+      "Payroll calculation",
+      "Tax and deduction calculation",
+      "Payroll data preparation",
+      "Regular payroll consultations"
+    ],
+    "order": 4,
+    "seo": {
+      "title": "Payroll calculation | FinSky",
+      "description": "Salary, tax, and related accrual calculations for regular business processes.",
+      "h1": "Payroll calculation"
+    }
+  },
+  {
+    "id": "accounting-recovery",
+    "slug": "accounting-recovery",
+    "title": "Accounting recovery",
+    "shortDescription": "Database audit, error correction, and restoration of documents and reports.",
+    "fullDescription": "We restore accurate records, correct accumulated errors, and create a reliable foundation for future work.",
+    "includes": [
+      "Current-state assessment",
+      "Data recovery",
+      "Document checks",
+      "A plan for ongoing accounting"
+    ],
+    "order": 5,
+    "seo": {
+      "title": "Accounting recovery | FinSky",
+      "description": "Database audit, error correction, and restoration of documents and reports.",
+      "h1": "Accounting recovery"
+    }
+  },
+  {
+    "id": "financial-consulting",
+    "slug": "financial-consulting",
+    "title": "Financial consulting",
+    "shortDescription": "Clear analysis of figures, obligations, cash flow, and management decisions.",
+    "fullDescription": "We help business owners understand expenses, obligations, cash flow, and management logic in plain language.",
+    "includes": [
+      "Financial data analysis",
+      "Cash flow consultations",
+      "Expense assessment",
+      "Recommendations for business decisions"
+    ],
+    "order": 6,
+    "seo": {
+      "title": "Financial consulting | FinSky",
+      "description": "Clear analysis of figures, obligations, cash flow, and management decisions.",
+      "h1": "Financial consulting"
+    }
+  }
+]

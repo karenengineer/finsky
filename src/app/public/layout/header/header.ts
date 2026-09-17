@@ -16,11 +16,11 @@ interface NavItem {
   template: `
     <header class="sticky top-0 z-50 border-b border-premium-line/80 bg-white/90 backdrop-blur-xl">
       <div class="mx-auto flex h-20 w-[min(calc(100%-2rem),1200px)] items-center justify-between">
-        <a routerLink="/" class="group flex items-center gap-3" aria-label="FinSky home">
-          <span class="grid size-11 place-items-center rounded-2xl bg-navy text-lg font-bold text-white shadow-card">F</span>
+        <a routerLink="/" class="group flex items-center gap-3" [attr.aria-label]="'common.a11y.brandHome' | translate">
+          <span class="grid size-11 place-items-center rounded-2xl bg-navy text-lg font-bold text-white shadow-card">{{ 'common.brandInitial' | translate }}</span>
           <span>
-            <span class="block text-lg font-bold tracking-tight text-navy">FinSky</span>
-            <span class="block text-xs font-semibold uppercase tracking-[0.22em] text-premium-gold">Accounting consulting</span>
+            <span class="block text-lg font-bold tracking-tight text-navy">{{ 'common.brand' | translate }}</span>
+            <span class="block text-xs font-semibold uppercase tracking-[0.22em] text-premium-gold">{{ 'common.headerTagline' | translate }}</span>
           </span>
         </a>
 

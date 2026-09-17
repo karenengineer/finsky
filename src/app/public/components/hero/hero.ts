@@ -41,19 +41,21 @@ import { HeroContent } from '../../../core/public-api/public-content.models';
           <div class="relative overflow-hidden rounded-[2rem] bg-navy p-7 text-white shadow-premium">
             <div
               class="aspect-[4/5] rounded-[1.5rem] bg-cover bg-center"
+              role="img"
+              [attr.aria-label]="content().imageAlt"
               [style.background-image]="'linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.03)), url(' + content().imageUrl + ')'"
             ></div>
             <div class="mt-7 grid gap-4 sm:grid-cols-3">
               <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
-                <span class="block text-2xl font-bold">01</span>
+                <span class="block text-2xl font-bold">{{ 'common.heroNumbers.accounting' | translate }}</span>
                 <span class="mt-1 block text-xs text-white/70">{{ 'public.hero.accounting' | translate }}</span>
               </div>
               <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
-                <span class="block text-2xl font-bold">02</span>
+                <span class="block text-2xl font-bold">{{ 'common.heroNumbers.taxes' | translate }}</span>
                 <span class="mt-1 block text-xs text-white/70">{{ 'public.hero.taxes' | translate }}</span>
               </div>
               <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
-                <span class="block text-2xl font-bold">03</span>
+                <span class="block text-2xl font-bold">{{ 'common.heroNumbers.reporting' | translate }}</span>
                 <span class="mt-1 block text-xs text-white/70">{{ 'public.hero.reporting' | translate }}</span>
               </div>
             </div>
