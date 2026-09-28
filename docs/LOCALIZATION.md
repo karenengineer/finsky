@@ -15,7 +15,7 @@ src/assets/i18n/
 
 The selection priority is:
 
-1. Saved `finkeep.language` value.
+1. Saved `finsky.language` value.
 2. Supported browser language.
 3. Russian fallback.
 

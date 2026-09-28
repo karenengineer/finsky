@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "finkeep": {
+    "finsky": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -65,10 +65,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "finkeep:build:production"
+              "buildTarget": "finsky:build:production"
             },
             "development": {
-              "buildTarget": "finkeep:build:development"
+              "buildTarget": "finsky:build:development"
             }
           },
           "defaultConfiguration": "development"
