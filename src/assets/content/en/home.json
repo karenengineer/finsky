@@ -74,20 +74,20 @@
   "statistics": [
     {
       "id": "clients",
-      "value": "[N]+",
-      "label": "companies can be shown after the data is confirmed",
+      "value": "B2B",
+      "label": "accounting support for businesses",
       "order": 1
     },
     {
       "id": "reports",
-      "value": "100%",
-      "label": "focus on deadlines, accuracy, and clear communication",
+      "value": "Tax",
+      "label": "consulting and reporting support",
       "order": 2
     },
     {
       "id": "city",
       "value": "Yerevan",
-      "label": "local expertise for businesses in Armenia",
+      "label": "support for companies in Armenia",
       "order": 3
     }
   ],

@@ -9,9 +9,9 @@
     "tagline": "accounting · tax · consulting",
     "nav": { "home": "Home", "about": "About us", "services": "Services", "benefits": "Benefits", "process": "Process", "faq": "FAQ", "contacts": "Contacts", "consult": "Discuss your needs", "getConsultation": "Get a consultation" },
     "actions": { "learnMore": "Learn more", "backHome": "Back home", "send": "Send request", "openSite": "Open website", "allServices": "All services", "getEstimate": "Get an estimate" },
-    "contact": { "phoneLabel": "Phone", "phone": "+374 XX XXX XXX", "emailLabel": "Email", "email": "hello@finsky.am", "officeLabel": "Office", "office": "Yerevan, Armenia", "hoursLabel": "Working hours", "hours": "Mon–Fri, 10:00–18:00" },
+    "contact": { "phoneLabel": "Phone", "phone": "+374 41 109 109", "emailLabel": "Email", "email": "info@finsky.am", "officeLabel": "Office", "office": "Yerevan, Armenia", "hoursLabel": "Working hours", "hours": "Mon–Fri, 10:00–18:00" },
     "form": {
-      "name": "Your name", "namePlaceholder": "First and last name", "phone": "Phone", "phonePlaceholder": "+7 (___) ___-__-__", "contact": "Phone or email", "company": "Company", "companyPlaceholder": "Company name", "task": "Briefly describe your needs", "taskPlaceholder": "For example: we want to outsource our accounting", "messagePlaceholder": "Describe the situation in a few sentences", "consent": "By clicking the button, you agree to the privacy policy.", "privacy": "privacy policy"
+      "name": "Your name", "namePlaceholder": "First and last name", "phone": "Phone", "phonePlaceholder": "+374 __ ___ ___", "contact": "Phone or email", "company": "Company", "companyPlaceholder": "Company name", "task": "Briefly describe your needs", "taskPlaceholder": "For example: we want to outsource our accounting", "messagePlaceholder": "Describe the situation in a few sentences", "consent": "By clicking the button, you agree to the privacy policy.", "privacy": "privacy policy"
     },
     "a11y": { "brandHome": "FinSky home", "selectLanguage": "Select language", "openMenu": "Open menu", "primaryNavigation": "Primary navigation", "financialAnalytics": "Financial analytics", "previousReview": "Previous review", "nextReview": "Next review" },
     "months": { "jan": "Jan", "feb": "Feb", "mar": "Mar", "apr": "Apr", "may": "May", "jun": "Jun", "jul": "Jul" },
@@ -160,7 +160,7 @@
       "general": { "title": "1. General provisions", "text": "This policy defines how FinSky processes and protects personal data submitted by website users. By using the website and submitting forms, the user confirms that they have read this policy." },
       "data": { "title": "2. Data we collect", "text": "We may process your name, phone number, email address, company name, and information voluntarily included in your message." },
       "purpose": { "title": "3. Processing purposes", "text": "Data is used to respond to requests, prepare proposals, provide services, and improve the website. We do not disclose data to third parties except where required by law." },
-      "rights": { "title": "4. Your rights", "text": "You may request information about processing, correct your data, or withdraw consent by emailing privacy@finsky.am." }
+      "rights": { "title": "4. Your rights", "text": "You may request information about processing, correct your data, or withdraw consent by emailing info@finsky.am." }
     }
   },
   "successPage": { "kicker": "Request sent", "title": "Thank you for your trust", "text": "We have received your message. A relevant expert will review it and contact you within one business day.", "back": "Return to home", "request": "Request number: FK-260609" },

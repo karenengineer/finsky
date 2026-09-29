@@ -2,10 +2,15 @@ name: Build static site
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
-      - codex/finsky-rebrand
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -29,6 +34,9 @@ jobs:
       - name: Run unit tests
         run: npm test -- --watch=false
 
+      - name: Test deployment scripts
+        run: node --test scripts/deploy-ftps.test.cjs scripts/notify-telegram.test.cjs
+
       - name: Build production site
         run: npm run build
 
@@ -42,3 +50,73 @@ jobs:
           name: finsky-shared-hosting
           path: dist/finsky/finsky-shared-hosting.zip
           if-no-files-found: error
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment: production
+    concurrency:
+      group: finsky-production
+      cancel-in-progress: false
+    timeout-minutes: 30
+    steps:
+      - name: Checkout deployment scripts
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Download verified build
+        uses: actions/download-artifact@v4
+        with:
+          name: finsky-shared-hosting
+
+      - name: Prepare release
+        run: |
+          unzip -q finsky-shared-hosting.zip -d release
+          test -f release/index.html
+          test -f release/.htaccess
+
+      - name: Install FTPS client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y lftp
+
+      - name: Publish to cPanel
+        env:
+          FTPS_HOST: ${{ vars.FTPS_HOST }}
+          FTPS_USER: ${{ secrets.FTPS_USER }}
+          LFTP_PASSWORD: ${{ secrets.FTPS_PASSWORD }}
+        run: bash scripts/deploy-ftps.sh release
+
+      - name: Check public site
+        run: |
+          curl --fail --silent --show-error --location --max-time 20 --retry 3 --retry-all-errors \
+            --output "$RUNNER_TEMP/finsky-live-index.html" https://finsky.am/
+          cmp release/index.html "$RUNNER_TEMP/finsky-live-index.html"
+
+  notify:
+    needs: [build, deploy]
+    if: ${{ always() && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - name: Checkout notification script
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Notify Telegram of result
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DEPLOY_STATUS: ${{ needs.deploy.result == 'success' && 'success' || 'failure' }}
+          DEPLOY_COMMIT: ${{ github.sha }}
+          DEPLOY_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/attempts/${{ github.run_attempt }}
+        run: node scripts/notify-telegram.cjs
