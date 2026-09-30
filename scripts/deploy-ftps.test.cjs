@@ -52,6 +52,8 @@ test('uses verified FTPS and uploads index last without deleting server files', 
   assert.match(args, /ftp:ssl-protect-data true/);
   assert.match(args, /ssl:verify-certificate true/);
   assert.match(args, /open --env-password --user "deploy@example\.com" "ftp:\/\/ftp\.example\.com"/);
+  assert.match(args, /\ncls index\.html\n/);
+  assert.doesNotMatch(args, /get index\.html/);
   assert.match(args, /mirror --reverse/);
   assert.doesNotMatch(args, /--delete|private-test-password/);
   assert.ok(args.indexOf('put .htaccess') < args.indexOf('put index.html'));
