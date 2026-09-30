@@ -33,7 +33,9 @@ import { PublicContentApiService } from '../../../core/public-api/public-content
           <div class="mt-4 grid gap-3 text-sm text-white/75">
             @if (contacts(); as contact) {
               <a [href]="'mailto:' + contact.email" class="hover:text-white">{{ contact.email }}</a>
-              <span>{{ contact.phone }}</span>
+              @if (contact.phone) {
+                <span>{{ contact.phone }}</span>
+              }
               <span>{{ contact.address }}</span>
             }
           </div>

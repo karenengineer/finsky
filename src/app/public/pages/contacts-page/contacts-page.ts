@@ -26,7 +26,9 @@ import { SectionStateComponent } from '../../components/section-state/section-st
       </section>
       <section class="bg-white py-16 md:py-24">
         <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] gap-5 md:grid-cols-2 lg:grid-cols-4">
-          <div class="rounded-premium border border-premium-line p-6 shadow-card"><b class="text-navy">{{ 'common.contact.phoneLabel' | translate }}</b><p class="mt-3 text-premium-muted">{{ contacts.phone }}</p></div>
+          @if (contacts.phone) {
+            <div class="rounded-premium border border-premium-line p-6 shadow-card"><b class="text-navy">{{ 'common.contact.phoneLabel' | translate }}</b><p class="mt-3 text-premium-muted">{{ contacts.phone }}</p></div>
+          }
           <div class="rounded-premium border border-premium-line p-6 shadow-card"><b class="text-navy">{{ 'common.contact.emailLabel' | translate }}</b><p class="mt-3 text-premium-muted">{{ contacts.email }}</p></div>
           <div class="rounded-premium border border-premium-line p-6 shadow-card"><b class="text-navy">{{ 'common.contact.officeLabel' | translate }}</b><p class="mt-3 text-premium-muted">{{ contacts.address }}</p></div>
           <div class="rounded-premium border border-premium-line p-6 shadow-card"><b class="text-navy">{{ 'common.contact.hoursLabel' | translate }}</b><p class="mt-3 text-premium-muted">{{ contacts.workingHours }}</p></div>

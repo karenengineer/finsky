@@ -41,7 +41,7 @@ describe('LocalizationService', () => {
 
     await service.use('hy');
 
-    expect(localStorage.getItem('finkeep.language')).toBe('hy');
+    expect(localStorage.getItem('finsky.language')).toBe('hy');
     expect(document.documentElement.lang).toBe('hy');
   });
 

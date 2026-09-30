@@ -7,7 +7,7 @@ import {
   TranslationParams,
 } from './localization.types';
 
-const STORAGE_KEY = 'finkeep.language';
+const STORAGE_KEY = 'finsky.language';
 const DEFAULT_LANGUAGE: LanguageCode = 'ru';
 
 @Injectable({ providedIn: 'root' })

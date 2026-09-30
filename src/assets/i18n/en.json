@@ -1,5 +1,5 @@
 {
-  "seo": {"services":{"title":"Services — FinKeep","description":"From daily accounting to complex tax matters, we provide exactly the expertise your company needs."},"notFound":{"title":"Page not found — FinKeep","description":"The address may have changed or been entered incorrectly. Let’s return to financial clarity."},"thankYou":{"title":"Prepare email","description":"The button opens your email app with a prepared message. Send it from that app; this website does not store requests."}},
+  "seo": {"services":{"title":"Services — FinSky","description":"From daily accounting to complex tax matters, we provide exactly the expertise your company needs."},"notFound":{"title":"Page not found — FinSky","description":"The address may have changed or been entered incorrectly. Let’s return to financial clarity."},"thankYou":{"title":"Prepare email","description":"The button opens your email app with a prepared message. Send it from that app; this website does not store requests."}},
   "common": {
     "brandInitial": "F",
     "headerTagline": "Accounting consulting",
@@ -9,15 +9,15 @@
     "tagline": "accounting · tax · consulting",
     "nav": { "home": "Home", "about": "About us", "services": "Services", "benefits": "Benefits", "process": "Process", "faq": "FAQ", "contacts": "Contacts", "consult": "Discuss your needs", "getConsultation": "Get a consultation" },
     "actions": { "learnMore": "Learn more", "backHome": "Back home", "send": "Send request", "openSite": "Open website", "allServices": "All services", "getEstimate": "Get an estimate" },
-    "contact": { "phoneLabel": "Phone", "phone": "+374 XX XXX XXX", "emailLabel": "Email", "email": "hello@finsky.am", "officeLabel": "Office", "office": "Yerevan, Armenia", "hoursLabel": "Working hours", "hours": "Mon–Fri, 10:00–18:00" },
+    "contact": { "phoneLabel": "Phone", "phone": "+374 41 109 109", "emailLabel": "Email", "email": "info@finsky.am", "officeLabel": "Office", "office": "Yerevan, Armenia", "hoursLabel": "Working hours", "hours": "Mon–Fri, 10:00–18:00" },
     "form": {
-      "name": "Your name", "namePlaceholder": "First and last name", "phone": "Phone", "phonePlaceholder": "+7 (___) ___-__-__", "contact": "Phone or email", "company": "Company", "companyPlaceholder": "Company name", "task": "Briefly describe your needs", "taskPlaceholder": "For example: we want to outsource our accounting", "messagePlaceholder": "Describe the situation in a few sentences", "consent": "By clicking the button, you agree to the privacy policy.", "privacy": "privacy policy"
+      "name": "Your name", "namePlaceholder": "First and last name", "phone": "Phone", "phonePlaceholder": "+374 __ ___ ___", "contact": "Phone or email", "company": "Company", "companyPlaceholder": "Company name", "task": "Briefly describe your needs", "taskPlaceholder": "For example: we want to outsource our accounting", "messagePlaceholder": "Describe the situation in a few sentences", "consent": "By clicking the button, you agree to the privacy policy.", "privacy": "privacy policy"
     },
     "a11y": { "brandHome": "FinSky home", "selectLanguage": "Select language", "openMenu": "Open menu", "primaryNavigation": "Primary navigation", "financialAnalytics": "Financial analytics", "previousReview": "Previous review", "nextReview": "Next review" },
     "months": { "jan": "Jan", "feb": "Feb", "mar": "Mar", "apr": "Apr", "may": "May", "jun": "Jun", "jul": "Jul" },
     "footer": { "description": "Accounting support, tax consulting, and financial clarity for businesses in Yerevan, Armenia.", "company": "Company", "connect": "Contact us", "copyright": "© {{year}} FinSky. All rights reserved.", "privacy": "Privacy policy", "disclaimer": "Information on this website does not constitute a public offer" }
   },
-  "titles": { "home": "FinKeep — accounting and tax consulting", "about": "About us — FinKeep", "services": "Services — FinKeep", "service": "Service — FinKeep", "contacts": "Contacts — FinKeep", "privacy": "Privacy policy — FinKeep", "success": "Request sent — FinKeep", "login": "Sign in — FinKeep", "admin": "Control panel — FinKeep", "adminContent": "Content management — FinKeep", "adminUsers": "Admin users — FinKeep", "teamSectionEditor": "Team section — FinKeep", "accessDenied": "Access denied — FinKeep", "notFound": "Page not found — FinKeep" },
+  "titles": { "home": "FinSky — accounting and tax consulting", "about": "About us — FinSky", "services": "Services — FinSky", "service": "Service — FinSky", "contacts": "Contacts — FinSky", "privacy": "Privacy policy — FinSky", "success": "Request sent — FinSky", "login": "Sign in — FinSky", "admin": "Control panel — FinSky", "adminContent": "Content management — FinSky", "adminUsers": "Admin users — FinSky", "teamSectionEditor": "Team section — FinSky", "accessDenied": "Access denied — FinSky", "notFound": "Page not found — FinSky" },
   "home": {
     "hero": {
       "kicker": "Accounting and tax consulting", "title": "Business finances —", "accent": "under control.", "description": "We build accurate accounting, reduce tax risks, and free your time for decisions that move the business forward.", "servicesLink": "Explore services", "proofContract": "Contract-based work", "proofPrivacy": "Confidential", "proofExpert": "Dedicated expert", "visualCaption": "Precision in every detail", "reportTitle": "Financial overview", "reportDate": "May 2026", "status": "Up to date", "metric": "Tax burden", "experience": "years of expertise", "audience": "Companies · Sole traders · Groups", "coverage": "Moscow · Serving clients across Russia"
@@ -43,7 +43,7 @@
       }
     },
     "about": {
-      "kicker": "About FinKeep", "title": "The expertise of a major consultancy. The attention of a personal adviser.", "description": "We brought together accountants, tax consultants, and financial analysts to solve business challenges comprehensively. Each client has a dedicated team that knows the company and remains available.", "quote": "Our job is to give business owners a clear financial picture and confidence in every decision.", "partner": "Elena Krylova", "role": "Managing Partner"
+      "kicker": "About FinSky", "title": "The expertise of a major consultancy. The attention of a personal adviser.", "description": "We brought together accountants, tax consultants, and financial analysts to solve business challenges comprehensively. Each client has a dedicated team that knows the company and remains available.", "quote": "Our job is to give business owners a clear financial picture and confidence in every decision.", "partner": "Elena Krylova", "role": "Managing Partner"
     },
     "team": {
       "label": "Our Team",
@@ -118,7 +118,7 @@
     }
   },
   "aboutPage": {
-    "kicker": "About us", "title": "We make complex finances clear", "intro": "FinKeep is a team of accountants, tax consultants, and analysts. We help business owners see the real picture and make confident decisions.", "principles": "Principles", "heading": "Professional responsibility without bureaucracy", "p1": "We started with a simple idea: high-quality accounting support should give business owners not only accurate reports, but also peace of mind.", "p2": "That is why we study the business model, identify risks early, and remain available when decisions need to be made quickly. Every client knows their team personally.", "quote": "“We measure quality not by the number of documents prepared, but by the client’s confidence in their numbers.”",
+    "kicker": "About us", "title": "We make complex finances clear", "intro": "FinSky is a team of accountants, tax consultants, and analysts. We help business owners see the real picture and make confident decisions.", "principles": "Principles", "heading": "Professional responsibility without bureaucracy", "p1": "We started with a simple idea: high-quality accounting support should give business owners not only accurate reports, but also peace of mind.", "p2": "That is why we study the business model, identify risks early, and remain available when decisions need to be made quickly. Every client knows their team personally.", "quote": "“We measure quality not by the number of documents prepared, but by the client’s confidence in their numbers.”",
     "values": {
       "accuracy": { "title": "Accuracy", "text": "We verify facts and leave no room for assumptions." },
       "partnership": { "title": "Partnership", "text": "We approach every task from the business owner’s perspective." },
@@ -157,10 +157,10 @@
   "privacyPage": {
     "kicker": "Documents", "title": "Privacy policy", "revision": "Version dated June 9, 2026", "contents": "Contents",
     "sections": {
-      "general": { "title": "1. General provisions", "text": "This policy defines how FinKeep processes and protects personal data submitted by website users. By using the website and submitting forms, the user confirms that they have read this policy." },
+      "general": { "title": "1. General provisions", "text": "This policy defines how FinSky processes and protects personal data submitted by website users. By using the website and submitting forms, the user confirms that they have read this policy." },
       "data": { "title": "2. Data we collect", "text": "We may process your name, phone number, email address, company name, and information voluntarily included in your message." },
       "purpose": { "title": "3. Processing purposes", "text": "Data is used to respond to requests, prepare proposals, provide services, and improve the website. We do not disclose data to third parties except where required by law." },
-      "rights": { "title": "4. Your rights", "text": "You may request information about processing, correct your data, or withdraw consent by emailing privacy@finkeep.ru." }
+      "rights": { "title": "4. Your rights", "text": "You may request information about processing, correct your data, or withdraw consent by emailing info@finsky.am." }
     }
   },
   "successPage": { "kicker": "Request sent", "title": "Thank you for your trust", "text": "We have received your message. A relevant expert will review it and contact you within one business day.", "back": "Return to home", "request": "Request number: FK-260609" },
