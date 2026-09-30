@@ -35,7 +35,7 @@ set net:max-retries 2
 set net:timeout 20
 open --env-password --user \"$FTPS_USER\" \"ftp://$FTPS_HOST\"
 cd /
-get index.html -o /dev/null
+cls index.html
 mirror --reverse --no-perms --exclude-glob index.html --exclude-glob .htaccess . .
 put .htaccess -o .htaccess
 put index.html -o index.html
