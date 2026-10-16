@@ -16,17 +16,17 @@ import { FaqItem, HomeSectionCopy } from '../../../core/public-api/public-conten
             <p class="mt-5 leading-7 text-premium-muted">{{ copy().description }}</p>
           }
         </div>
-        <div class="grid gap-3">
+        <div class="border-t border-premium-line">
           @for (item of items(); track item.id) {
-            <article class="rounded-3xl border border-premium-line bg-white shadow-card">
-              <button type="button" class="flex w-full items-center justify-between gap-6 px-6 py-5 text-left" (click)="toggle(item.id)">
+            <article class="border-b border-premium-line bg-white">
+              <button type="button" class="flex w-full items-center justify-between gap-6 py-6 text-left" [attr.aria-expanded]="openItemId() === item.id" (click)="toggle(item.id)">
                 <span class="text-lg font-bold text-navy">{{ item.question }}</span>
-                <span class="grid size-9 shrink-0 place-items-center rounded-full bg-premium-paper text-xl text-navy">
+                <span class="grid size-9 shrink-0 place-items-center border border-premium-line text-xl text-sky" aria-hidden="true">
                   {{ openItemId() === item.id ? '−' : '+' }}
                 </span>
               </button>
               @if (openItemId() === item.id) {
-                <p class="px-6 pb-6 leading-7 text-premium-muted">{{ item.answer }}</p>
+                <p class="max-w-2xl pb-6 leading-7 text-premium-muted">{{ item.answer }}</p>
               }
             </article>
           }

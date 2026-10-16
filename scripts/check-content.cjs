@@ -43,6 +43,11 @@ function validateContent(root) {
     assert.equal(new Set(services.map(service => service.slug)).size, services.length, `${language}: duplicate service slug`);
     services.forEach(service => assert.match(service.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, `${language}: invalid service slug`));
     const home = content.home;
+    assert.equal(home.hero.instrument.levels.length, 5, `${language}: complexity instrument needs five levels`);
+    const serviceSlugs = new Set(services.map(service => service.slug));
+    for (const card of home.practices.cards) {
+      assert.ok(card.ctaHref.startsWith('/services/') && serviceSlugs.has(card.ctaHref.slice('/services/'.length)), `${language}: invalid practice link ${card.ctaHref}`);
+    }
     for (const [url, alt] of [[home.hero.imageUrl, home.hero.imageAlt], [home.about.imageUrl, home.about.imageAlt], [home.team.backgroundImageUrl, home.team.backgroundImageAlt]]) {
       assert.ok(typeof url === 'string' && url.startsWith('assets/images/') && !url.includes('..'), `${language}: image must be local`);
       assert.ok(fs.existsSync(path.join(root, 'src', url)), `${language}: missing image ${url}`);

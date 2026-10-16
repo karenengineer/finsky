@@ -17,7 +17,7 @@ import { SectionStateComponent } from '../../components/section-state/section-st
     <section class="bg-premium-paper/70 py-20 md:py-28">
       <div class="mx-auto w-[min(calc(100%-2rem),1200px)]">
         <p class="text-xs font-bold uppercase tracking-[0.2em] text-premium-gold">{{ 'servicesPage.kicker' | translate }}</p>
-        <h1 class="mt-4 max-w-4xl font-display text-5xl leading-tight tracking-[-0.04em] text-navy md:text-7xl">{{ 'servicesPage.title' | translate }}</h1>
+        <h1 class="mt-4 max-w-4xl font-display text-4xl leading-tight tracking-[-0.04em] text-navy [overflow-wrap:anywhere] sm:text-5xl md:text-6xl">{{ 'servicesPage.title' | translate }}</h1>
         <p class="mt-7 max-w-3xl text-xl leading-9 text-premium-muted">{{ 'servicesPage.intro' | translate }}</p>
       </div>
     </section>
@@ -26,13 +26,13 @@ import { SectionStateComponent } from '../../components/section-state/section-st
       <app-section-state [label]="'public.states.loading' | translate" [message]="'public.states.loadingServices' | translate" />
     } @else if (state().data?.length) {
       <section class="bg-white py-16 md:py-24">
-        <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] border-l border-t border-premium-line md:grid-cols-2 lg:grid-cols-3">
           @for (service of state().data; track service.id) {
-            <a [routerLink]="['/services', service.slug]" class="group rounded-premium border border-premium-line bg-white p-7 shadow-card transition hover:-translate-y-1 hover:shadow-premium">
-              <span class="text-sm font-bold text-premium-gold">{{ service.order.toString().padStart(2, '0') }}</span>
+            <a [routerLink]="['/services', service.slug]" class="group border-b border-r border-premium-line bg-white p-7 transition-colors hover:bg-premium-paper focus-visible:z-10">
+              <span class="block h-1 w-9 bg-sky" aria-hidden="true"></span>
               <h2 class="mt-8 text-2xl font-bold tracking-tight text-navy">{{ service.title }}</h2>
               <p class="mt-4 leading-7 text-premium-muted">{{ service.shortDescription }}</p>
-              <span class="mt-8 inline-flex text-sm font-bold text-navy transition group-hover:text-premium-gold">{{ 'public.actions.openService' | translate }}</span>
+              <span class="mt-8 inline-flex text-sm font-bold text-sky">{{ 'public.actions.openService' | translate }}</span>
             </a>
           }
         </div>

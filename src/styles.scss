@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Prata&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,13 +5,13 @@
 :root {
   --navy: #03213a;
   --navy-2: #0a304d;
-  --ink: #10283a;
-  --muted: #647582;
-  --gold: #b89a63;
-  --gold-soft: #e9dfcc;
-  --paper: #f5f3ee;
+  --ink: #0b1026;
+  --muted: #596274;
+  --gold: #f59e2b;
+  --gold-soft: #fef0d7;
+  --paper: #f3f5fa;
   --white: #ffffff;
-  --line: #dce2e5;
+  --line: #dce2eb;
   --success: #2f7357;
   --danger: #9b4a46;
   --shadow: 0 24px 70px rgba(3, 33, 58, 0.1);
@@ -29,12 +27,13 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--white);
-  font-family: 'Manrope', Arial, sans-serif;
+  font-family: 'Noto Sans Armenian', 'Noto Sans', 'Segoe UI', 'Sylfaen', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 button, input, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid #2440d6; outline-offset: 4px; }
 h1, h2, h3, p { margin-top: 0; }
 .container { width: min(calc(100% - 48px), var(--container)); margin: 0 auto; }
 .section { padding: 112px 0; }
@@ -52,8 +51,8 @@ h1, h2, h3, p { margin-top: 0; }
 .section-kicker::before { content: ''; width: 32px; height: 1px; background: currentColor; }
 .display, .section-title {
   color: var(--navy);
-  font-family: 'Prata', Georgia, serif;
-  font-weight: 400;
+  font-family: 'Noto Sans Armenian', 'Noto Sans', 'Segoe UI', 'Sylfaen', Arial, sans-serif;
+  font-weight: 800;
   letter-spacing: -.035em;
 }
 .section-title { max-width: 760px; margin-bottom: 24px; font-size: clamp(38px, 5vw, 64px); line-height: 1.08; }
@@ -93,7 +92,7 @@ a:hover .arrow, button:hover .arrow { transform: translateX(4px); }
   transition: border-color .2s, box-shadow .2s;
 }
 .field textarea { min-height: 112px; resize: vertical; }
-.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,154,99,.14); }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: #2440d6; box-shadow: 0 0 0 3px rgba(36,64,214,.14); }
 
 @media (max-width: 760px) {
   .container { width: min(calc(100% - 32px), var(--container)); }

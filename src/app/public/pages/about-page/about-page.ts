@@ -19,7 +19,7 @@ import { SectionStateComponent } from '../../components/section-state/section-st
       <section class="bg-premium-paper/70 py-20 md:py-28">
         <div class="mx-auto w-[min(calc(100%-2rem),1200px)]">
           <p class="text-xs font-bold uppercase tracking-[0.2em] text-premium-gold">{{ 'aboutPage.kicker' | translate }}</p>
-          <h1 class="mt-4 max-w-4xl font-display text-5xl leading-tight tracking-[-0.04em] text-navy md:text-7xl">{{ page.seo.h1 || page.title }}</h1>
+          <h1 class="mt-4 max-w-4xl font-display text-4xl leading-tight tracking-[-0.04em] text-navy [overflow-wrap:anywhere] sm:text-5xl md:text-6xl">{{ page.seo.h1 || page.title }}</h1>
           <p class="mt-7 max-w-3xl text-xl leading-9 text-premium-muted">{{ page.intro }}</p>
         </div>
       </section>

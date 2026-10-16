@@ -45,6 +45,15 @@ describe('LocalizationService', () => {
     expect(document.documentElement.lang).toBe('hy');
   });
 
+  it('starts in Armenian for a new visitor', async () => {
+    const service = TestBed.inject(LocalizationService);
+
+    await service.initialize();
+
+    expect(service.language()).toBe('hy');
+    expect(document.documentElement.lang).toBe('hy');
+  });
+
   it('returns the key when a translation is missing', async () => {
     const service = TestBed.inject(LocalizationService);
 

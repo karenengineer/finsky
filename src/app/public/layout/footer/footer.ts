@@ -34,7 +34,7 @@ import { PublicContentApiService } from '../../../core/public-api/public-content
             @if (contacts(); as contact) {
               <a [href]="'mailto:' + contact.email" class="hover:text-white">{{ contact.email }}</a>
               @if (contact.phone) {
-                <span>{{ contact.phone }}</span>
+                <a [href]="phoneHref(contact.phone)" class="hover:text-white">{{ contact.phone }}</a>
               }
               <span>{{ contact.address }}</span>
             }
@@ -56,4 +56,8 @@ export class FooterComponent {
     switchMap(() => this.content.getContacts().pipe(catchError(() => of(null)))),
   ));
   protected readonly currentYear = new Date().getFullYear();
+
+  protected phoneHref(phone: string): string {
+    return `tel:${phone.replace(/[^+\d]/g, '')}`;
+  }
 }

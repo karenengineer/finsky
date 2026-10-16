@@ -7,7 +7,7 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
   standalone: true,
   imports: [RouterLink],
   template: `
-    <section id="services" class="bg-premium-paper/70 py-20 md:py-28">
+    <section id="services" class="bg-white py-20 md:py-28">
       <div class="mx-auto w-[min(calc(100%-2rem),1200px)]">
         <div class="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>
@@ -25,16 +25,16 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
         </div>
 
         @if (services().length) {
-          <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            @for (service of services(); track service.id) {
+          <div class="grid border-l border-t border-premium-line md:grid-cols-2 lg:grid-cols-3">
+            @for (service of services().slice(0, 6); track service.id) {
               <a
                 [routerLink]="['/services', service.slug]"
-                class="group min-h-64 rounded-premium border border-premium-line bg-white p-7 shadow-card transition hover:-translate-y-1 hover:shadow-premium"
+                class="group min-h-64 border-b border-r border-premium-line bg-white p-7 transition-colors hover:bg-premium-paper focus-visible:z-10"
               >
-                <span class="text-sm font-bold text-premium-gold">{{ service.order.toString().padStart(2, '0') }}</span>
-                <h3 class="mt-8 text-2xl font-bold tracking-tight text-navy">{{ service.title }}</h3>
+                <span class="block h-1 w-9 bg-sky" aria-hidden="true"></span>
+                <h3 class="mt-8 text-2xl font-bold tracking-tight text-premium-ink">{{ service.title }}</h3>
                 <p class="mt-4 leading-7 text-premium-muted">{{ service.shortDescription }}</p>
-                <span class="mt-8 inline-flex text-sm font-bold text-navy transition group-hover:text-premium-gold">{{ copy().detailLabel }} →</span>
+                <span class="mt-8 inline-flex text-sm font-bold text-sky">{{ copy().detailLabel }} →</span>
               </a>
             }
           </div>

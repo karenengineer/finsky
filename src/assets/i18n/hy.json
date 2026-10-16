@@ -7,7 +7,7 @@
     "languages": { "hy": { "label": "Հայերեն", "shortLabel": "HY" }, "en": { "label": "English", "shortLabel": "EN" }, "ru": { "label": "Русский", "shortLabel": "RU" } },
     "brand": "FinSky",
     "tagline": "հաշվառում · հարկեր · խորհրդատվություն",
-    "nav": { "home": "Գլխավոր", "about": "Մեր մասին", "services": "Ծառայություններ", "benefits": "Առավելություններ", "process": "Գործընթաց", "faq": "FAQ", "contacts": "Կապ", "consult": "Քննարկել խնդիրը", "getConsultation": "Ստանալ խորհրդատվություն" },
+    "nav": { "home": "Գլխավոր", "about": "Մեր մասին", "services": "Ծառայություններ", "monthlyReport": "Արդյունքը", "benefits": "Առավելություններ", "process": "Գործընթաց", "faq": "FAQ", "contacts": "Կապ", "consult": "Քննարկել խնդիրը", "getConsultation": "Ստանալ խորհրդատվություն" },
     "actions": { "learnMore": "Իմանալ ավելին", "backHome": "Գլխավոր էջ", "send": "Ուղարկել հայտը", "openSite": "Բացել կայքը", "allServices": "Բոլոր ծառայությունները", "getEstimate": "Ստանալ հաշվարկ" },
     "contact": { "phoneLabel": "Հեռախոս", "phone": "+374 41 109 109", "emailLabel": "Էլ. փոստ", "email": "info@finsky.am", "officeLabel": "Գրասենյակ", "office": "Yerevan, Armenia", "hoursLabel": "Աշխատանքային ժամեր", "hours": "Երկ–Ուրբ, 10:00–18:00" },
     "form": {

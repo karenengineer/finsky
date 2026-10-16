@@ -112,5 +112,15 @@
       "description": "Clear analysis of figures, obligations, cash flow, and management decisions.",
       "h1": "Financial consulting"
     }
+  },
+  {
+    "id": "us-bookkeeping",
+    "slug": "us-bookkeeping",
+    "title": "Bookkeeping for US businesses",
+    "shortDescription": "Transaction records and organized financial data in QuickBooks Online or Zoho Books.",
+    "fullDescription": "We help US businesses keep their books organized in QuickBooks Online or Zoho Books. The scope is agreed based on your operations and current records.",
+    "includes": ["Transaction recording", "Review and organization of records", "Regular financial summaries", "Discussion of next steps"],
+    "order": 7,
+    "seo": { "title": "US bookkeeping | FinSky", "description": "FinSky bookkeeping support for US businesses in QuickBooks Online or Zoho Books.", "h1": "Bookkeeping for US businesses" }
   }
 ]

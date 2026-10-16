@@ -2,12 +2,13 @@
   "seo": {
     "title": "FinSky — accounting and tax consulting",
     "description": "We build accurate accounting, reduce tax risks, and free your time for decisions that move the business forward.",
-    "h1": "Business finances —"
+    "h1": "The most complex books, made simple. The simplest, made flawless."
   },
   "hero": {
     "eyebrow": "Accounting and tax consulting",
-    "title": "Business finances — under control.",
-    "description": "We build accurate accounting, reduce tax risks, and free your time for decisions that move the business forward.",
+    "title": "The most complex books, made simple.",
+    "titleAccent": "The simplest, made flawless.",
+    "description": "Accounting, tax advice, and a clearer financial picture at every stage of your business.",
     "imageUrl": "assets/images/hero.jpg",
     "primaryCtaLabel": "Get a consultation",
     "primaryCtaHref": "#consultation",
@@ -18,7 +19,45 @@
       "Contract-based work",
       "Dedicated expert"
     ],
-    "imageAlt": "Accounting documents on a desk"
+    "imageAlt": "Accounting documents on a desk",
+    "instrument": {
+      "eyebrow": "From complexity to clarity",
+      "inputLabel": "Your situation",
+      "outputLabel": "Your outcome",
+      "sliderLabel": "Choose your business stage",
+      "result": "A clearer financial picture",
+      "levels": [
+        { "id": "sole", "title": "Sole proprietor", "description": "Everyday transactions and essential reporting.", "deliverable": "Organized records" },
+        { "id": "vat", "title": "VAT-registered company", "description": "Tax obligations and a growing flow of documents.", "deliverable": "Clear reporting plan" },
+        { "id": "growth", "title": "Growing business", "description": "More transactions, employees, and management decisions.", "deliverable": "Regular financial summary" },
+        { "id": "group", "title": "Group of companies", "description": "Several entities and a need for comparable information.", "deliverable": "Combined financial view" },
+        { "id": "recovery", "title": "Books recovery", "description": "Outstanding discrepancies and a need for transition.", "deliverable": "Recovery action plan" }
+      ]
+    }
+  },
+  "monthlyReport": {
+    "eyebrow": "What you receive",
+    "title": "More than bookkeeping. A clearer view for decisions.",
+    "description": "We organize your data into a readable summary so you can see what has happened and what needs attention next.",
+    "points": ["Key figures in one summary", "Important deadlines and obligations in view", "A specialist to discuss questions with"],
+    "sampleLabel": "Illustrative sample",
+    "periodLabel": "Monthly summary",
+    "revenueLabel": "Revenue",
+    "revenueValue": "AMD 12.8m",
+    "expensesLabel": "Expenses",
+    "expensesValue": "AMD 8.2m",
+    "resultLabel": "Difference",
+    "resultValue": "AMD 4.6m",
+    "note": "Figures are illustrative and do not represent any client's data."
+  },
+  "practices": {
+    "eyebrow": "Where we work",
+    "title": "Support for businesses in Armenia and the US.",
+    "description": "Two practices with one clear approach to records and reporting. We define the scope around your situation.",
+    "cards": [
+      { "id": "armenia", "symbol": "֏", "title": "Armenia", "description": "Accounting support and tax advice for businesses operating in Armenia.", "points": ["Bookkeeping", "Tax questions and reporting", "Payroll calculation"], "ctaLabel": "Explore the service", "ctaHref": "/services/accounting-support" },
+      { "id": "usa", "symbol": "$", "title": "United States", "description": "Bookkeeping for US businesses using QuickBooks Online or Zoho Books.", "points": ["Transaction records", "Books organization", "Financial summaries"], "ctaLabel": "Explore the service", "ctaHref": "/services/us-bookkeeping" }
+    ]
   },
   "benefits": [
     {
@@ -48,15 +87,15 @@
   ],
   "about": {
     "eyebrow": "About FinSky",
-    "title": "The expertise of a major consultancy. The attention of a personal adviser.",
-    "description": "We brought together accountants, tax consultants, and financial analysts to solve business challenges comprehensively. Each client has a dedicated team that knows the company and remains available.",
+    "title": "Accounting and advice, with one clear approach.",
+    "description": "FinSky helps businesses organize their accounts, navigate tax questions, and understand their financial position. We begin by listening to your specific needs.",
     "ctaLabel": "Learn more",
     "ctaHref": "/about",
     "imageUrl": "assets/images/about.jpg",
     "imageAlt": "Financial consultants' workspace"
   },
   "team": {
-    "isVisible": true,
+    "isVisible": false,
     "backgroundImageUrl": "assets/images/team-background.jpg",
     "overlayOpacity": 0.72,
     "label": "Our Team",

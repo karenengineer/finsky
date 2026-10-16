@@ -8,7 +8,7 @@ import {
 } from './localization.types';
 
 const STORAGE_KEY = 'finsky.language';
-const DEFAULT_LANGUAGE: LanguageCode = 'ru';
+const DEFAULT_LANGUAGE: LanguageCode = 'hy';
 
 @Injectable({ providedIn: 'root' })
 export class LocalizationService {
@@ -79,9 +79,7 @@ export class LocalizationService {
       return stored;
     }
 
-    const browserLanguage =
-      typeof navigator !== 'undefined' ? navigator.language.toLowerCase().split('-')[0] : '';
-    return this.isLanguageCode(browserLanguage) ? browserLanguage : DEFAULT_LANGUAGE;
+    return DEFAULT_LANGUAGE;
   }
 
   private isLanguageCode(value: string | null): value is LanguageCode {

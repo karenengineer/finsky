@@ -1,7 +1,8 @@
 import { Component, inject, input, signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { finalize } from 'rxjs';
+import { catchError, finalize, of, switchMap } from 'rxjs';
 import { LocalizationService } from '../../../core/i18n/localization.service';
 import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { PublicContentApiService } from '../../../core/public-api/public-content-api.service';
@@ -12,9 +13,9 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink, TranslatePipe],
   template: `
-    <section id="consultation" class="bg-navy py-20 text-white md:py-28">
-      <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-        <div>
+    <section id="consultation" class="bg-[#0e1642] py-20 text-white md:py-28">
+      <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-start">
+        <div class="min-w-0">
           <p class="text-xs font-bold uppercase tracking-[0.2em] text-premium-gold">{{ copy().eyebrow }}</p>
           <h2 class="mt-4 font-display text-4xl leading-tight tracking-[-0.04em] md:text-6xl">
             {{ copy().title }}
@@ -22,10 +23,26 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
           <p class="mt-6 text-lg leading-8 text-white/70">
             {{ copy().description }}
           </p>
+          @if (contacts(); as contact) {
+            <div class="mt-10 grid gap-5 border-t border-white/20 pt-7">
+              @if (contact.phone) {
+                <div>
+                  <p class="mb-1 text-xs font-bold uppercase tracking-[0.14em] text-white/50">{{ 'common.contact.phoneLabel' | translate }}</p>
+                  <a [href]="phoneHref(contact.phone)" class="text-xl font-bold text-white hover:text-premium-gold">{{ contact.phone }}</a>
+                </div>
+              }
+              @if (contact.email) {
+                <div>
+                  <p class="mb-1 text-xs font-bold uppercase tracking-[0.14em] text-white/50">{{ 'common.contact.emailLabel' | translate }}</p>
+                  <a [href]="'mailto:' + contact.email" class="text-xl font-bold text-white hover:text-premium-gold">{{ contact.email }}</a>
+                </div>
+              }
+            </div>
+          }
         </div>
 
-        <form class="rounded-[2rem] bg-white p-5 text-premium-ink shadow-premium md:p-8" [formGroup]="form" (ngSubmit)="submit()">
-          <div class="grid gap-5 md:grid-cols-2">
+        <form class="min-w-0 rounded-[2rem] bg-white p-5 text-premium-ink shadow-premium md:p-8" [formGroup]="form" (ngSubmit)="submit()">
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
             <label class="grid gap-2">
               <span class="text-sm font-bold text-navy">{{ 'common.form.name' | translate }} *</span>
               <input class="min-h-13 rounded-2xl border border-premium-line px-4 outline-none focus:border-premium-gold focus:ring-4 focus:ring-premium-gold/10" formControlName="name" autocomplete="name" />
@@ -51,7 +68,7 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
 
             <label class="grid gap-2 md:col-span-2">
               <span class="text-sm font-bold text-navy">{{ 'public.form.service' | translate }}</span>
-              <select class="min-h-13 rounded-2xl border border-premium-line px-4 outline-none focus:border-premium-gold focus:ring-4 focus:ring-premium-gold/10" formControlName="service">
+              <select class="min-h-13 min-w-0 w-full rounded-2xl border border-premium-line px-4 outline-none focus:border-premium-gold focus:ring-4 focus:ring-premium-gold/10" formControlName="service">
                 <option value="">{{ 'public.form.servicePlaceholder' | translate }}</option>
                 @for (service of services(); track service.id) {
                   <option [value]="service.slug">{{ service.title }}</option>
@@ -81,7 +98,7 @@ import { HomeSectionCopy, ServiceSummary } from '../../../core/public-api/public
           <p class="mt-5 text-sm leading-6 text-premium-muted">{{ 'public.form.emailNotice' | translate }}</p>
           <button
             type="submit"
-            class="mt-7 inline-flex min-h-14 w-full items-center justify-center rounded-full bg-navy px-7 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-navy-700 disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
+            class="mt-7 inline-flex min-h-14 w-full items-center justify-center rounded-lg bg-premium-gold px-7 text-sm font-bold text-premium-ink transition-colors hover:bg-[#ffc16a] disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
             [disabled]="isSubmitting()"
           >
             {{ copy().submitLabel }}
@@ -98,6 +115,9 @@ export class ConsultationFormComponent {
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(PublicContentApiService);
   private readonly localization = inject(LocalizationService);
+  protected readonly contacts = toSignal(toObservable(this.localization.language).pipe(
+    switchMap(() => this.api.getContacts().pipe(catchError(() => of(null)))),
+  ));
 
   protected readonly isSubmitting = signal(false);
   protected readonly submitError = signal<string | null>(null);
@@ -129,6 +149,10 @@ export class ConsultationFormComponent {
       return this.localization.translate('public.form.errors.minlength');
     }
     return this.localization.translate('public.form.errors.default');
+  }
+
+  protected phoneHref(phone: string): string {
+    return `tel:${phone.replace(/[^+\d]/g, '')}`;
   }
 
   protected submit(): void {
