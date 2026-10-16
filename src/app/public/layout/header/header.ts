@@ -15,43 +15,40 @@ interface NavItem {
   imports: [RouterLink, RouterLinkActive, LanguageSwitcherComponent, TranslatePipe],
   template: `
     <header class="sticky top-0 z-50 border-b border-premium-line/80 bg-white/90 backdrop-blur-xl">
-      <div class="mx-auto flex h-20 w-[min(calc(100%-2rem),1200px)] items-center justify-between">
+      <div class="mx-auto flex h-20 w-[min(calc(100%-2rem),1200px)] items-center justify-between gap-6">
         <a routerLink="/" class="group flex items-center gap-3" [attr.aria-label]="'common.a11y.brandHome' | translate">
-          <span class="grid size-11 place-items-center rounded-2xl bg-navy text-lg font-bold text-white shadow-card">{{ 'common.brandInitial' | translate }}</span>
-          <span>
-            <span class="block text-lg font-bold tracking-tight text-navy">{{ 'common.brand' | translate }}</span>
-            <span class="block text-xs font-semibold uppercase tracking-[0.22em] text-premium-gold">{{ 'common.headerTagline' | translate }}</span>
-          </span>
+          <span class="grid size-10 place-items-center bg-navy text-lg font-bold text-white">{{ 'common.brandInitial' | translate }}</span>
+          <span class="text-xl font-extrabold tracking-[-0.05em] text-premium-ink">{{ 'common.brand' | translate }}</span>
         </a>
 
-        <nav class="hidden items-center gap-8 text-sm font-semibold text-navy lg:flex" [attr.aria-label]="'common.a11y.primaryNavigation' | translate">
+        <nav class="hidden items-center gap-6 whitespace-nowrap text-sm font-semibold text-premium-ink xl:flex" [attr.aria-label]="'common.a11y.primaryNavigation' | translate">
           @for (item of navItems; track item.href + item.fragment) {
             <a
               [routerLink]="item.href"
               [fragment]="item.fragment"
-              routerLinkActive="text-premium-gold"
+              routerLinkActive="text-sky"
               [routerLinkActiveOptions]="{ exact: item.href === '/' && !item.fragment }"
-              class="transition hover:text-premium-gold"
+              class="transition hover:text-sky"
             >
               {{ item.labelKey | translate }}
             </a>
           }
         </nav>
 
-        <div class="hidden items-center gap-3 lg:flex">
+        <div class="hidden items-center gap-3 xl:flex">
           <app-language-switcher />
           <a
             routerLink="/"
             fragment="consultation"
-            class="inline-flex min-h-12 items-center rounded-full bg-navy px-5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-navy-700"
+            class="inline-flex min-h-11 items-center whitespace-nowrap bg-sky px-5 text-sm font-bold text-white transition-colors hover:bg-navy"
           >
-            {{ 'common.nav.getConsultation' | translate }}
+            {{ 'common.nav.consult' | translate }}
           </a>
         </div>
 
         <button
           type="button"
-          class="inline-flex size-11 items-center justify-center rounded-full border border-premium-line text-navy lg:hidden"
+          class="inline-flex size-11 items-center justify-center border border-premium-line text-navy xl:hidden"
           [attr.aria-expanded]="isMenuOpen()"
           aria-controls="mobile-menu"
           (click)="toggleMenu()"
@@ -66,7 +63,7 @@ interface NavItem {
       </div>
 
       @if (isMenuOpen()) {
-        <div id="mobile-menu" class="border-t border-premium-line bg-white px-4 py-5 shadow-card lg:hidden">
+        <div id="mobile-menu" class="border-t border-premium-line bg-white px-4 py-5 shadow-card xl:hidden">
           <nav class="mx-auto grid w-[min(100%,1200px)] gap-2 text-base font-semibold text-navy">
             @for (item of navItems; track item.href + item.fragment) {
               <a
@@ -81,7 +78,7 @@ interface NavItem {
             <div class="mt-3 flex items-center justify-between rounded-2xl bg-premium-paper p-3">
               <app-language-switcher />
               <a routerLink="/" fragment="consultation" class="rounded-full bg-navy px-4 py-3 text-sm text-white" (click)="closeMenu()">
-                {{ 'common.nav.getConsultation' | translate }}
+                {{ 'common.nav.consult' | translate }}
               </a>
             </div>
           </nav>
@@ -94,9 +91,8 @@ export class HeaderComponent {
   protected readonly isMenuOpen = signal(false);
 
   protected readonly navItems: NavItem[] = [
-    { labelKey: 'common.nav.home', href: '/' },
     { labelKey: 'common.nav.services', href: '/services' },
-    { labelKey: 'common.nav.about', href: '/about' },
+    { labelKey: 'common.nav.monthlyReport', href: '/', fragment: 'monthly-report' },
     { labelKey: 'common.nav.process', href: '/', fragment: 'process' },
     { labelKey: 'common.nav.faq', href: '/', fragment: 'faq' },
     { labelKey: 'common.nav.contacts', href: '/contacts' },

@@ -25,6 +25,7 @@ export interface PageData {
 export interface HeroContent {
   eyebrow: string;
   title: string;
+  titleAccent: string;
   description: string;
   imageUrl: string;
   imageAlt: string;
@@ -33,6 +34,21 @@ export interface HeroContent {
   secondaryCtaLabel: string;
   secondaryCtaHref: string;
   highlights: string[];
+  instrument: ComplexityInstrumentContent;
+}
+
+export interface ComplexityInstrumentContent {
+  eyebrow: string;
+  inputLabel: string;
+  outputLabel: string;
+  sliderLabel: string;
+  result: string;
+  levels: {
+    id: string;
+    title: string;
+    description: string;
+    deliverable: string;
+  }[];
 }
 
 export interface ServiceSummary {
@@ -146,6 +162,8 @@ export interface HomeSectionCopy {
 export interface PublicHomeContent {
   seo: SeoMeta;
   hero: HeroContent;
+  monthlyReport: MonthlyReportContent;
+  practices: PracticesContent;
   services: ServiceSummary[];
   benefits: Benefit[];
   about: AboutPreview;
@@ -156,4 +174,35 @@ export interface PublicHomeContent {
   faq: FaqItem[];
   contacts: ContactSettings;
   sections: HomeSectionCopy;
+}
+
+export interface PracticesContent {
+  eyebrow: string;
+  title: string;
+  description: string;
+  cards: {
+    id: string;
+    symbol: string;
+    title: string;
+    description: string;
+    points: string[];
+    ctaLabel: string;
+    ctaHref: string;
+  }[];
+}
+
+export interface MonthlyReportContent {
+  eyebrow: string;
+  title: string;
+  description: string;
+  points: string[];
+  sampleLabel: string;
+  periodLabel: string;
+  revenueLabel: string;
+  revenueValue: string;
+  expensesLabel: string;
+  expensesValue: string;
+  resultLabel: string;
+  resultValue: string;
+  note: string;
 }

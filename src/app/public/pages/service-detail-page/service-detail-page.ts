@@ -21,19 +21,19 @@ import { SectionStateComponent } from '../../components/section-state/section-st
       <section class="bg-premium-paper/70 py-20 md:py-28">
         <div class="mx-auto w-[min(calc(100%-2rem),1200px)]">
           <a routerLink="/services" class="text-sm font-bold text-premium-gold">← {{ 'common.actions.allServices' | translate }}</a>
-          <h1 class="mt-6 max-w-4xl font-display text-5xl leading-tight tracking-[-0.04em] text-navy md:text-7xl">{{ service.seo.h1 || service.title }}</h1>
+          <h1 class="mt-6 max-w-4xl font-display text-4xl leading-tight tracking-[-0.04em] text-navy [overflow-wrap:anywhere] sm:text-5xl md:text-6xl">{{ service.seo.h1 || service.title }}</h1>
           <p class="mt-7 max-w-3xl text-xl leading-9 text-premium-muted">{{ service.fullDescription }}</p>
         </div>
       </section>
       <section class="bg-white py-16 md:py-24">
-        <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
+        <div class="mx-auto grid w-[min(calc(100%-2rem),1200px)] grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+          <div class="min-w-0">
             <p class="text-xs font-bold uppercase tracking-[0.2em] text-premium-gold">{{ 'serviceDetail.included' | translate }}</p>
-            <h2 class="mt-4 font-display text-4xl tracking-[-0.04em] text-navy">{{ 'serviceDetail.heading' | translate }}</h2>
+            <h2 class="mt-4 font-display text-4xl tracking-[-0.04em] text-navy [overflow-wrap:anywhere]">{{ 'serviceDetail.heading' | translate }}</h2>
           </div>
-          <div class="grid gap-4">
+          <div class="min-w-0 border-t border-premium-line">
             @for (item of service.includes; track item) {
-              <div class="rounded-3xl border border-premium-line bg-white p-6 shadow-card">
+              <div class="border-b border-premium-line py-6">
                 <span class="font-bold text-navy">{{ item }}</span>
               </div>
             }

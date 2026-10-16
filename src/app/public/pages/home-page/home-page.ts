@@ -4,16 +4,17 @@ import { switchMap } from 'rxjs';
 import { LocalizationService } from '../../../core/i18n/localization.service';
 import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { PublicContentApiService } from '../../../core/public-api/public-content-api.service';
-import { ApiState, PublicHomeContent } from '../../../core/public-api/public-content.models';
+import { ApiState, PublicHomeContent, Testimonial } from '../../../core/public-api/public-content.models';
 import { SeoService } from '../../../core/seo/seo.service';
 import { AboutPreviewComponent } from '../../components/about-preview/about-preview';
 import { BenefitsComponent } from '../../components/benefits/benefits';
 import { ConsultationFormComponent } from '../../components/consultation-form/consultation-form';
 import { FaqComponent } from '../../components/faq/faq';
 import { HeroComponent } from '../../components/hero/hero';
+import { MonthlyReportComponent } from '../../components/monthly-report/monthly-report';
+import { PracticesComponent } from '../../components/practices/practices';
 import { SectionStateComponent } from '../../components/section-state/section-state';
 import { ServicesPreviewComponent } from '../../components/services-preview/services-preview';
-import { StatisticsComponent } from '../../components/statistics/statistics';
 import { TestimonialsComponent } from '../../components/testimonials/testimonials';
 import { WorkProcessComponent } from '../../components/work-process/work-process';
 
@@ -26,9 +27,10 @@ import { WorkProcessComponent } from '../../components/work-process/work-process
     ConsultationFormComponent,
     FaqComponent,
     HeroComponent,
+    MonthlyReportComponent,
+    PracticesComponent,
     SectionStateComponent,
     ServicesPreviewComponent,
-    StatisticsComponent,
     TestimonialsComponent,
     WorkProcessComponent,
     TranslatePipe,
@@ -48,11 +50,16 @@ import { WorkProcessComponent } from '../../components/work-process/work-process
         @if (state().data; as content) {
           <app-hero [content]="content.hero" />
           <app-services-preview [services]="content.services" [copy]="content.sections.services" />
+          <app-monthly-report [content]="content.monthlyReport" />
           <app-benefits [benefits]="content.benefits" [copy]="content.sections.benefits" />
           <app-about-preview [about]="content.about" [team]="content.team" />
-          <app-statistics [statistics]="content.statistics" />
+          <app-practices [content]="content.practices" />
           <app-work-process [steps]="content.workSteps" [copy]="content.sections.workProcess" />
-          <app-testimonials [testimonials]="content.testimonials" [copy]="content.sections.testimonials" />
+          @if (publishedTestimonials(content.testimonials); as testimonials) {
+            @if (testimonials.length) {
+              <app-testimonials [testimonials]="testimonials" [copy]="content.sections.testimonials" />
+            }
+          }
           <app-faq [items]="content.faq" [copy]="content.sections.faq" />
           <app-consultation-form [services]="content.services" [copy]="content.sections.consultation" />
         }
@@ -71,6 +78,10 @@ export class HomePageComponent {
     data: null,
     error: null,
   });
+
+  protected publishedTestimonials(testimonials: Testimonial[]): Testimonial[] {
+    return testimonials.filter(testimonial => !testimonial.isDemo);
+  }
 
   constructor() {
     toObservable(this.localization.language)

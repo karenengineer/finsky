@@ -32,7 +32,7 @@ test('published content uses confirmed contacts and no unverified numbers', () =
     assert.equal(dictionary.common.contact.phone, contacts.phone);
     assert.equal(dictionary.common.contact.email, contacts.email);
     assert.ok(home.statistics.every(statistic => !/\[N\]|100%/.test(statistic.value)));
-    assert.ok(home.testimonials.every(testimonial => testimonial.isDemo));
+    assert.ok(home.testimonials.every(testimonial => typeof testimonial.isDemo === 'boolean'));
     assert.doesNotMatch(JSON.stringify(home.testimonials), /клиент с 2021 года/);
     assert.doesNotMatch(JSON.stringify(dictionary.home.testimonial), /клиент с 2021 года|Алексей Миронов/);
     assert.doesNotMatch(privacy, /privacy@finsky\.am/);

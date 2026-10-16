@@ -1,66 +1,40 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { HeroContent } from '../../../core/public-api/public-content.models';
+import { ComplexityInstrumentComponent } from '../complexity-instrument/complexity-instrument';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [RouterLink, TranslatePipe],
+  imports: [RouterLink, ComplexityInstrumentComponent],
   template: `
-    <section class="relative overflow-hidden bg-white">
-      <div class="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-navy-50 to-transparent"></div>
-      <div class="relative mx-auto grid min-h-[760px] w-[min(calc(100%-2rem),1200px)] items-center gap-14 py-16 lg:grid-cols-[1.05fr_0.95fr]">
+    <section class="relative overflow-hidden bg-premium-paper">
+      <div class="relative mx-auto grid min-h-[700px] w-[min(calc(100%-2rem),1200px)] items-center gap-12 py-16 lg:grid-cols-[0.95fr_1.05fr] lg:py-24">
         <div>
-          <p class="mb-6 inline-flex rounded-full border border-premium-line bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-premium-gold shadow-card">
+          <p class="mb-7 inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-premium-muted before:block before:h-px before:w-8 before:bg-premium-gold">
             {{ content().eyebrow }}
           </p>
-          <h1 class="font-display text-5xl leading-[1.04] tracking-[-0.04em] text-navy md:text-7xl">
-            {{ content().title }}
+          <h1 class="font-display text-[clamp(1.8rem,7.8vw,2.25rem)] font-extrabold leading-[1.13] tracking-[-0.045em] text-premium-ink [overflow-wrap:anywhere] sm:text-[clamp(2.25rem,3.8vw,4.25rem)]">
+            {{ content().title }}<br /><span class="text-sky">{{ content().titleAccent }}</span>
           </h1>
-          <p class="mt-7 max-w-2xl text-lg leading-8 text-premium-muted">
+          <p class="mt-8 max-w-xl text-lg leading-8 text-premium-muted">
             {{ content().description }}
           </p>
           <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a [href]="content().primaryCtaHref" class="inline-flex min-h-14 items-center justify-center rounded-full bg-navy px-7 text-sm font-bold text-white transition hover:-translate-y-1 hover:bg-navy-700">
+            <a [href]="content().primaryCtaHref" class="inline-flex min-h-14 items-center justify-center bg-sky px-7 text-sm font-bold text-white transition-colors hover:bg-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky">
               {{ content().primaryCtaLabel }}
             </a>
-            <a [routerLink]="content().secondaryCtaHref" class="inline-flex min-h-14 items-center justify-center rounded-full border border-navy px-7 text-sm font-bold text-navy transition hover:-translate-y-1 hover:bg-navy hover:text-white">
+            <a [routerLink]="content().secondaryCtaHref" class="inline-flex min-h-14 items-center justify-center border border-premium-ink px-7 text-sm font-bold text-premium-ink transition-colors hover:bg-premium-ink hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky">
               {{ content().secondaryCtaLabel }}
             </a>
           </div>
-          <div class="mt-9 flex flex-wrap gap-3">
+          <div class="mt-12 flex flex-wrap gap-x-6 gap-y-3 border-t border-premium-line pt-6">
             @for (highlight of content().highlights; track highlight) {
-              <span class="rounded-full bg-premium-paper px-4 py-2 text-sm font-semibold text-navy">{{ highlight }}</span>
+              <span class="inline-flex items-center gap-2 text-xs font-semibold text-premium-ink before:block before:size-1.5 before:rounded-full before:bg-premium-gold">{{ highlight }}</span>
             }
           </div>
         </div>
-
-        <div class="relative">
-          <div class="absolute -inset-6 rounded-[2.5rem] bg-navy/5"></div>
-          <div class="relative overflow-hidden rounded-[2rem] bg-navy p-7 text-white shadow-premium">
-            <div
-              class="aspect-[4/5] rounded-[1.5rem] bg-cover bg-center"
-              role="img"
-              [attr.aria-label]="content().imageAlt"
-              [style.background-image]="'linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.03)), url(' + content().imageUrl + ')'"
-            ></div>
-            <div class="mt-7 grid gap-4 sm:grid-cols-3">
-              <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
-                <span class="block text-2xl font-bold">{{ 'common.heroNumbers.accounting' | translate }}</span>
-                <span class="mt-1 block text-xs text-white/70">{{ 'public.hero.accounting' | translate }}</span>
-              </div>
-              <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
-                <span class="block text-2xl font-bold">{{ 'common.heroNumbers.taxes' | translate }}</span>
-                <span class="mt-1 block text-xs text-white/70">{{ 'public.hero.taxes' | translate }}</span>
-              </div>
-              <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
-                <span class="block text-2xl font-bold">{{ 'common.heroNumbers.reporting' | translate }}</span>
-                <span class="mt-1 block text-xs text-white/70">{{ 'public.hero.reporting' | translate }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-complexity-instrument [content]="content().instrument" />
       </div>
     </section>
   `,
