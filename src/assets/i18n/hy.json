@@ -2,6 +2,7 @@
   "seo": {"services":{"title":"Ծառայություններ — FinSky","description":"Ամենօրյա հաշվառումից մինչև բարդ հարկային հարցեր՝ ներգրավում ենք հենց այն փորձը, որն անհրաժեշտ է ձեր ընկերությանը։"},"notFound":{"title":"Էջը չի գտնվել — FinSky","description":"Հնարավոր է՝ հասցեն փոխվել է կամ սխալ է նշված։ Վերադառնանք ֆինանսական հստակությանը։"},"thankYou":{"title":"Պատրաստել նամակ","description":"Կոճակը կբացի ձեր էլեկտրոնային փոստի հավելվածը՝ պատրաստված նամակով։ Ուղարկեք այն այդ հավելվածից․ կայքը հարցումներ չի պահպանում։"}},
   "common": {
     "brandInitial": "F",
+    "brandLogoUrl": "assets/images/finsky-consulting-logo.png",
     "headerTagline": "Հաշվապահական խորհրդատվություն",
     "heroNumbers": { "accounting": "01", "taxes": "02", "reporting": "03" },
     "languages": { "hy": { "label": "Հայերեն", "shortLabel": "HY" }, "en": { "label": "English", "shortLabel": "EN" }, "ru": { "label": "Русский", "shortLabel": "RU" } },
