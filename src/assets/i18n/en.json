@@ -2,6 +2,7 @@
   "seo": {"services":{"title":"Services — FinSky","description":"From daily accounting to complex tax matters, we provide exactly the expertise your company needs."},"notFound":{"title":"Page not found — FinSky","description":"The address may have changed or been entered incorrectly. Let’s return to financial clarity."},"thankYou":{"title":"Prepare email","description":"The button opens your email app with a prepared message. Send it from that app; this website does not store requests."}},
   "common": {
     "brandInitial": "F",
+    "brandLogoUrl": "assets/images/finsky-consulting-logo.png",
     "headerTagline": "Accounting consulting",
     "heroNumbers": { "accounting": "01", "taxes": "02", "reporting": "03" },
     "languages": { "hy": { "label": "Հայերեն", "shortLabel": "HY" }, "en": { "label": "English", "shortLabel": "EN" }, "ru": { "label": "Русский", "shortLabel": "RU" } },

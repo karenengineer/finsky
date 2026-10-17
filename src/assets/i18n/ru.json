@@ -2,6 +2,7 @@
   "seo": {"services":{"title":"Услуги — FinSky","description":"От ежедневного учёта до сложных налоговых вопросов — подключаем ровно ту экспертизу, которая нужна вашей компании."},"notFound":{"title":"Страница не найдена — FinSky","description":"Возможно, адрес изменился или был указан неверно. Вернёмся к финансовой ясности."},"thankYou":{"title":"Подготовить письмо","description":"Кнопка откроет ваше почтовое приложение с подготовленным письмом. Отправьте письмо в нём; сайт не сохраняет заявки."}},
   "common": {
     "brandInitial": "F",
+    "brandLogoUrl": "assets/images/finsky-consulting-logo.png",
     "headerTagline": "Бухгалтерский консалтинг",
     "heroNumbers": { "accounting": "01", "taxes": "02", "reporting": "03" },
     "languages": { "hy": { "label": "Հայերեն", "shortLabel": "HY" }, "en": { "label": "English", "shortLabel": "EN" }, "ru": { "label": "Русский", "shortLabel": "RU" } },

@@ -15,10 +15,16 @@ interface NavItem {
   imports: [RouterLink, RouterLinkActive, LanguageSwitcherComponent, TranslatePipe],
   template: `
     <header class="sticky top-0 z-50 border-b border-premium-line/80 bg-white/90 backdrop-blur-xl">
-      <div class="mx-auto flex h-20 w-[min(calc(100%-2rem),1200px)] items-center justify-between gap-6">
-        <a routerLink="/" class="group flex items-center gap-3" [attr.aria-label]="'common.a11y.brandHome' | translate">
-          <span class="grid size-10 place-items-center bg-navy text-lg font-bold text-white">{{ 'common.brandInitial' | translate }}</span>
-          <span class="text-xl font-extrabold tracking-[-0.05em] text-premium-ink">{{ 'common.brand' | translate }}</span>
+      <div class="mx-auto flex h-20 w-[min(calc(100%-2rem),1200px)] items-center justify-between gap-6 xl:h-24">
+        <a routerLink="/" class="block h-20 w-36 shrink-0 overflow-hidden xl:h-24 xl:w-[170px]" [attr.aria-label]="'common.a11y.brandHome' | translate">
+          <img
+            [src]="'common.brandLogoUrl' | translate"
+            [alt]="'common.brand' | translate"
+            class="h-full w-full object-cover object-[center_44%] brightness-[1.14] contrast-[1.08]"
+            width="170"
+            height="96"
+            fetchpriority="high"
+          />
         </a>
 
         <nav class="hidden items-center gap-6 whitespace-nowrap text-sm font-semibold text-premium-ink xl:flex" [attr.aria-label]="'common.a11y.primaryNavigation' | translate">
